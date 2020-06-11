@@ -1,0 +1,535 @@
+/* Cargar las fuentes a utilizar en el sitio */
+@font-face{
+  font-family:Montserrat;
+  src: url(../fonts/Montserrat-Regular.ttf);
+}
+
+@font-face{
+  font-family:Montserrat;
+  font-weight:bold;
+  src: url(../fonts/Montserrat-Bold.ttf);
+}
+
+@font-face{
+  font-family: Yanone;
+  src:url(../fonts/YanoneKaffeesatz-Regular.ttf);
+}
+
+@font-face{
+  font-family: Yanone;
+  font-weight:bold;
+  src:url(../fonts/YanoneKaffeesatz-bold.ttf);
+}
+
+body{
+  font-family:Montserrat, sans-serif;
+}
+
+/*--------------------Colores Personalizados--------------------*/
+.bg-darkgreen{
+  background-color: rgba(10,46,7,0.95);
+}
+
+.bg-btn-green{
+  background: #246c07;
+  opacity: 0.9;
+}
+
+.border-card{
+  border-color: #246c07;
+}
+
+.bg-btn-lightgreen{
+  background-color: #188812
+}
+
+.bg-menu{
+  background-color: rgba(36, 108, 7,0.9);
+}
+/*-------------------------Estilos Header-------------------------*/
+
+.main-header{
+   z-index: 2000;
+}
+ 
+ h1.logo{
+   font-size: 3rem;
+   font-weight: bold;
+   padding: 10px;
+   text-align: left
+ }
+ 
+ .main-header__contactInfo__phone{
+   color:white;
+   margin: 0 auto;
+   padding:5px;
+   font-size: 1rem
+ }
+ 
+ .main-header__contactInfo__address{
+   margin: 0 auto;
+   padding:5px;
+   color:white;
+   font-size: 1rem
+ }
+ 
+ .main-header[class*="icon-"]:before{
+   position:relative;
+   top:2px;
+   right: 5px;
+ }
+
+/*-------------------------Estilos Banner-------------------------*/
+
+.banner {
+  margin-top:-400px;
+  opacity: 0.9;
+}
+
+.banner:before{
+   content: '';
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   background: rgba(0,0,0,0.2);
+   z-index: 1000;
+   top:0;
+ }
+
+ .banner__img{
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+ .banner__content{
+   width: 90%;
+   z-index: 1500;
+   top:87%;
+   left:50%;
+   transform: translateX(-50%) translateY(-50%);
+   font-size: 2.5em;
+   font-weight: bold;
+ }
+
+ /*-------------------------Estilos Barra de Navegación-------------------------*/
+
+ .main-nav{
+   width: 100%;
+   position:relative;
+   z-index: 2000;
+   padding: 10px;
+   background-color: #1a4714;
+ }
+
+.nav-item:hover{
+  background: #00b700;
+  }
+
+
+.active{
+ background-color: #00b700;
+ font-weight: bold;
+}
+
+ /* La clase sticky se agrega a a la barra de navegación a través de JS para fijarla al borde superior de la página al hacer scroll */
+.sticky {
+   position: fixed;
+   top: 0;
+   width: 100%;
+ }
+ .sticky + .content {
+   padding-top: 260px;
+ }
+
+ /*-------------------------Estilos Íconos Redes Sociales-------------------------*/
+
+ .social-icon {
+   margin: 0 0 0 auto;
+   display:flex;
+   justify-content:space-between;
+   align-items: center;
+ }
+ 
+ .social-icon [class*="icon-"]{
+   color:#1a5414;
+   margin-left: 20px;
+   display:flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 1.3em;
+   width:35px;
+   height: 35px;
+   background: white;
+   border-radius:50%;
+ }
+ 
+ .social-icon__link{
+   text-decoration: none;
+   color:#009432;
+ }
+ 
+ .social-icon [class*="icon-"]:hover{
+   text-decoration: none;
+   color:white;
+   background: #3fe82e;
+ }
+
+ /*----------------------- Estilos del footer -----------------------*/
+ 
+ .main__footer{
+  background-color: rgba(10,46,7,0.95);
+  font-size: .8rem;
+}
+
+.copy{
+  text-align: center;
+  margin: auto;
+  margin-top: 15px;
+}
+
+.main__footer [class*="icon-"]{
+  color:white;
+  text-decoration: none;
+  margin:5px;
+}
+
+.main__footer [class*="icon-"]:before{
+  position: relative;
+  top:3px;
+  right: 5px;
+}
+
+/*----------------------- Estilos Paginación -----------------------*/
+a.page-link{
+  color: #1a4714;
+}
+
+span.page-link{
+  background-color: rgba(10,46,7,0.95);
+}
+
+/*----------------------- Otros Estilos -----------------------*/
+.category-title{
+  margin: 0px;
+  font-size: 1.1rem
+}
+
+.info-title{
+  font-family: Yanone;
+  font-weight: bold;
+}
+
+
+/* ************************************************************************************************ */
+/* ************************************************************************************************ */
+/* ************************************************************************************************ */
+@media screen and (max-width:767px){
+.main-header__contactInfo{
+  display: none;
+}
+
+/* .main-header__contactInfo__phone{
+     margin: 0 auto;
+     padding:3px;
+     color:white;
+     background-color: #009432;
+     text-align: center;
+     font-size: 0.9em;
+}
+
+ .main-header__contactInfo__address{
+     margin: 0 auto;
+     padding:3px;
+     color:white;
+     background-color: #009432;
+     text-align: center;
+     font-size: 0.9em;
+} */
+
+ .banner{
+ margin-top:-170px;
+ position: relative;
+ opacity: 0.9;
+ z-index:-2000
+}
+ 
+ .banner__img{
+   width: 100%;
+   height: 200px;
+   object-fit: cover;
+ }
+
+ .banner__content{
+   font-size: 1.3rem;
+   top: 70%;
+ }
+
+ h1.logo{
+   text-align: center;
+   font-size: 1.5rem;
+   color: white;
+   width: 100%;
+   padding: unset;
+   margin-top: 5px;
+ }
+
+ .icon-menu {
+     font-size: 1.5em
+ }
+ 
+ .main-nav{
+   padding: 0;
+   width:100%;
+   top: 37px
+ }
+
+ .navbar-dark .navbar-toggler {
+  color: white;
+  border: none
+ }
+
+ .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.sticky + .content {
+  padding-top: 260px;
+}
+
+.social-icon{
+  display: none;
+}
+
+ .btn {
+     max-width: 160px;
+     font-size: 0.8em;
+     padding: 8px 4px 8px;
+ }
+
+ .categorias__title{
+     font-size: 1em
+ }
+}
+/* 
+
+@media screen and (max-width:768px){
+ .container{
+   width: 760px;
+ }
+ h1.logo{
+  text-align: center;
+  font-size: 2rem;
+  color: white;
+  width: 100%;
+  padding: unset;
+  margin-top: 5px;
+ }
+
+ .banner{
+  margin-top:-164px;
+  position: relative;
+  opacity: 0.9;
+  z-index:-2000
+ }
+  
+  .banner__img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+ 
+  .banner__content{
+    font-size: 1.3rem;
+    top: 70%;
+  }
+
+ .main__title{
+   font-size: 2.2em;
+ }
+ .main__about__description{
+   margin-top: 10px;
+ }
+ .main__about__description .column-50:nth-child(2){
+   font-size: 1em;
+ }
+ .main__about__description .column-50:nth-child(2) .column__txt{
+   line-height: 30px;
+ }
+ .column--50-25{
+   width: 23.9%;
+ }
+ .categorias__title{
+   font-size: 1em
+ }
+ .group__title{
+   font-size: 2.8em;
+ }
+ .datos_usuario {
+   display: block;
+   color: #1a5414;
+   padding: 3px 5px;
+   font-weight: bold;
+   text-align: center;
+   z-index: 3000
+ }
+} */
+
+@media screen and (max-width:1023px){
+  .container{
+    width: 100%;
+  }
+  h1.logo{
+   text-align: center;
+   font-size: 2rem;
+   color: white;
+   width: 100%;
+   padding: unset;
+   margin-top: 5px;
+  }
+ 
+  .banner{
+   margin-top:-164px;
+   position: relative;
+   opacity: 0.9;
+   z-index:-2000
+  }
+   
+   .banner__img{
+     width: 100%;
+     height: 200px;
+     object-fit: cover;
+   }
+  
+   .banner__content{
+     font-size: 1.3rem;
+     top: 70%;
+   }
+ 
+  .main__title{
+    font-size: 2.2em;
+  }
+  .main__about__description{
+    margin-top: 10px;
+  }
+  .main__about__description .column-50:nth-child(2){
+    font-size: 1em;
+  }
+  .main__about__description .column-50:nth-child(2) .column__txt{
+    line-height: 30px;
+  }
+  .column--50-25{
+    width: 23.9%;
+  }
+  .categorias__title{
+    font-size: 1em
+  }
+  .group__title{
+    font-size: 2.8em;
+  }
+  .datos_usuario {
+    display: block;
+    color: #1a5414;
+    padding: 3px 5px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 3000
+  }
+ }
+
+@media screen and (min-width:1024px){
+/*  .container{
+   width: 1100px;
+ } */
+ .logo{
+   font-size: 2em;
+   padding: 0px;
+ }
+
+ .banner{
+  margin-top:-205px;
+  position: relative;
+  opacity: 0.9;
+  z-index:-2000
+ }
+  
+  .banner__img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+ 
+  .banner__content{
+    font-size: 1.3rem;
+    top: 70%;
+  }
+
+ .main-header__contactInfo__phone, .main-header__contactInfo__address{
+   padding-right: 0;
+   font-size: 1em;
+ }
+ .main-nav{
+   padding: 0;
+ }
+ .banner__img{
+   height: 350px
+ }
+ .banner__content{
+   font-size: 2.5em;
+   top:75%
+ }
+ .icon-menu{
+   display: none;
+ }
+ .menu{
+   display: -webkit-flex;
+   display: -moz-flex;
+   display: -ms-flex;
+   display: -o-flex;
+   display: flex;
+   height: auto;
+   position: static;
+   width: auto;
+ }
+ .menu__link{
+   padding: 13px;
+   font-size: 0.7em;
+ }
+ .group--color .container{
+   margin-top: 10px;
+   margin-bottom: 30px;
+   padding: 20px;  
+ }
+ .main__title{
+   font-size: 2.8em;
+ }
+ .main__about__description .column-50:nth-child(2) .column__txt{
+   line-height: 45px;
+ }
+
+ .categorias__title{
+   font-size: 1.4em;
+ }
+ .categorias__price{
+   font-size: 1.8em;
+ }
+ .main-footer{
+   padding-top: 30px;
+   padding-bottom: 30px;
+ }
+}
+
+@media screen and (min-width:1600px){
+ .content{
+   width: 1400px;
+ }
+ .main__about__description .column:nth-child(1) img{
+   width: 100%;
+   height: 350px;
+   object-fit: cover;
+ }
+ .categorias__img{
+   height: 300px;
+ }
+}
