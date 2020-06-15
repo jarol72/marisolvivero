@@ -2,7 +2,9 @@
 
 @section('content')
 
-<div class="card-body">
+   <div class="container">
+      <div class="card">
+         <div class="card-body">
 				<div id="divTable" class="table-responsive">
 					<table id="tblEmpleados" class="display table table-hover table-striped responsive nowrap"">
 						<thead>
@@ -37,5 +39,7 @@
 					</table>
 				</div>
 			</div>
+		</div>
+	</div>
 
 @endsection

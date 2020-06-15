@@ -3,11 +3,11 @@
 @section('title', 'Catálogo de productos')
 
 @section('content')
-<div>
-   <div class="row d-flex mt-2 mb-5 justify-content-center">
-      <a href="{{route('products.index')}}" class="col-sm btn bg-btn-lightgreen m-1 text-white {{(request('id') == null) ? 'active' : ''}}">Todos</a>
+<div class="container">
+   <div class="row d-flex mt-2 mb-4 justify-content-center">
+      <a href="{{route('products.index')}}" class="btn btn-cat-filter bg-btn-lightgreen m-1 text-white {{(request('id') == null) ? 'active' : ''}}">Todos</a>
       @forelse($categories as $category)
-      <a href="{{route('category_filter', $category->id)}}" class="col-sm btn bg-btn-lightgreen m-1 text-white {{(request('id') == $category->id) ? 'active' : ''}}">{{$category->category}}</a>
+      <a href="{{route('category_filter', $category->id)}}" class="btn btn-cat-filter bg-btn-lightgreen m-1 text-white {{(request('id') == $category->id) ? 'active' : ''}}">{{$category->category}}</a>
       @empty
       Sin datos
       @endforelse

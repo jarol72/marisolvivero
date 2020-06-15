@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Product;
 
-Auth::routes();
+/* Auth::routes(); */
 
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -35,3 +35,11 @@ Route::post('contact', 'MessageController@store')->name('message.store');
 // Rutas para vistas simples
 Route::view('who', 'who')->name('who');
 Route::view('help', 'help')->name('help');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Rutas Administrativas
+Route::get('/admin', 'AdmHomeController@index')->name('admin.index');
+

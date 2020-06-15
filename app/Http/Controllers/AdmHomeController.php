@@ -15,4 +15,13 @@ class AdmHomeController extends Controller
     {
         $this->middleware('auth');
     }
+
+    /**
+     * Show Admin homepage.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index(){
+        return view('admin.adm_home');
+    }
 }
