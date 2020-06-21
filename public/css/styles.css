@@ -46,31 +46,36 @@ body{
 .bg-menu{
   background-color: rgba(36, 108, 7,0.9);
 }
+
 /*-------------------------Estilos Header-------------------------*/
 
 .main-header{
    z-index: 2000;
+   position: relative;
+   margin-top: 30px;
 }
  
  h1.logo{
-   font-size: 3rem;
+   font-size: 2rem;
    font-weight: bold;
    padding: 10px;
-   text-align: left
+   text-align: center
  }
  
  .main-header__contactInfo__phone{
    color:white;
    margin: 0 auto;
    padding:5px;
-   font-size: 1rem
+   font-size: 1rem;
+   display:none
  }
  
  .main-header__contactInfo__address{
    margin: 0 auto;
    padding:5px;
    color:white;
-   font-size: 1rem
+   font-size: 1rem;
+   display:none
  }
  
  .main-header[class*="icon-"]:before{
@@ -79,11 +84,13 @@ body{
    right: 5px;
  }
 
+
 /*-------------------------Estilos Banner-------------------------*/
 
 .banner {
-  margin-top:-400px;
+  position: absolute;
   opacity: 0.9;
+  margin-top: -143px
 }
 
 .banner:before{
@@ -98,7 +105,7 @@ body{
 
  .banner__img{
   width: 100%;
-  height: 350px;
+  height: 160px;
   object-fit: cover;
 }
 
@@ -108,7 +115,7 @@ body{
    top:87%;
    left:50%;
    transform: translateX(-50%) translateY(-50%);
-   font-size: 2.5em;
+   font-size: 1.1rem;
    font-weight: bold;
  }
 
@@ -116,16 +123,20 @@ body{
 
  .main-nav{
    width: 100%;
-   position:relative;
+   position:absolute;
    z-index: 2000;
-   padding: 10px;
+   padding: 1px;
    background-color: #1a4714;
+   top: 0px
  }
 
 .nav-item:hover{
   background: #00b700;
-  }
+}
 
+.bg-menu{
+  background: none;
+}
 
 .active{
  background-color: #00b700;
@@ -167,6 +178,7 @@ body{
  .social-icon__link{
    text-decoration: none;
    color:#009432;
+   display:none
  }
  
  .social-icon [class*="icon-"]:hover{
@@ -220,316 +232,118 @@ span.page-link{
   font-weight: bold;
 }
 
-
-/* ************************************************************************************************ */
-/* ************************************************************************************************ */
-/* ************************************************************************************************ */
-@media screen and (max-width:767px){
-.main-header__contactInfo{
-  display: none;
+.btn-cat-filter{
+  font-size: 0.6rem;
 }
 
-/* .main-header__contactInfo__phone{
-     margin: 0 auto;
-     padding:3px;
-     color:white;
-     background-color: #009432;
-     text-align: center;
-     font-size: 0.9em;
+.liana{
+  display: none
 }
 
- .main-header__contactInfo__address{
-     margin: 0 auto;
-     padding:3px;
-     color:white;
-     background-color: #009432;
-     text-align: center;
-     font-size: 0.9em;
-} */
-
- .banner{
- margin-top:-170px;
- position: relative;
- opacity: 0.9;
- z-index:-2000
-}
- 
- .banner__img{
-   width: 100%;
-   height: 200px;
-   object-fit: cover;
- }
-
- .banner__content{
-   font-size: 1.3rem;
-   top: 70%;
- }
-
- h1.logo{
-   text-align: center;
-   font-size: 1.5rem;
-   color: white;
-   width: 100%;
-   padding: unset;
-   margin-top: 5px;
- }
-
- .icon-menu {
-     font-size: 1.5em
- }
- 
- .main-nav{
-   padding: 0;
-   width:100%;
-   top: 37px
- }
-
- .navbar-dark .navbar-toggler {
-  color: white;
-  border: none
- }
-
- .sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-.sticky + .content {
-  padding-top: 260px;
-}
-
-.social-icon{
-  display: none;
-}
-
- .btn {
-     max-width: 160px;
-     font-size: 0.8em;
-     padding: 8px 4px 8px;
- }
-
- .categorias__title{
-     font-size: 1em
- }
-}
-/* 
-
-@media screen and (max-width:768px){
- .container{
-   width: 760px;
- }
- h1.logo{
-  text-align: center;
-  font-size: 2rem;
-  color: white;
-  width: 100%;
-  padding: unset;
-  margin-top: 5px;
- }
-
- .banner{
-  margin-top:-164px;
-  position: relative;
-  opacity: 0.9;
-  z-index:-2000
+/* ************************************************************************************** */
+/* ********************************* Estilos Responsive ********************************* */
+/* ************************************************************************************** */
+@media screen and (min-width:768px){
+  .main-header{
+    margin-top: 0px;
  }
   
-  .banner__img{
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
- 
-  .banner__content{
-    font-size: 1.3rem;
-    top: 70%;
-  }
-
- .main__title{
-   font-size: 2.2em;
- }
- .main__about__description{
-   margin-top: 10px;
- }
- .main__about__description .column-50:nth-child(2){
-   font-size: 1em;
- }
- .main__about__description .column-50:nth-child(2) .column__txt{
-   line-height: 30px;
- }
- .column--50-25{
-   width: 23.9%;
- }
- .categorias__title{
-   font-size: 1em
- }
- .group__title{
-   font-size: 2.8em;
- }
- .datos_usuario {
-   display: block;
-   color: #1a5414;
-   padding: 3px 5px;
-   font-weight: bold;
-   text-align: center;
-   z-index: 3000
- }
-} */
-
-@media screen and (max-width:1023px){
-  .container{
-    width: 100%;
-  }
   h1.logo{
-   text-align: center;
-   font-size: 2rem;
-   color: white;
-   width: 100%;
-   padding: unset;
-   margin-top: 5px;
+    text-align: left
   }
- 
-  .banner{
-   margin-top:-164px;
-   position: relative;
-   opacity: 0.9;
-   z-index:-2000
+
+  .main-header__contactInfo__phone{
+    display: block
   }
-   
-   .banner__img{
-     width: 100%;
-     height: 200px;
-     object-fit: cover;
-   }
   
-   .banner__content{
-     font-size: 1.3rem;
-     top: 70%;
-   }
- 
-  .main__title{
-    font-size: 2.2em;
+  .main-header__contactInfo__address{
+    display: block
   }
-  .main__about__description{
-    margin-top: 10px;
-  }
-  .main__about__description .column-50:nth-child(2){
-    font-size: 1em;
-  }
-  .main__about__description .column-50:nth-child(2) .column__txt{
-    line-height: 30px;
-  }
-  .column--50-25{
-    width: 23.9%;
-  }
-  .categorias__title{
-    font-size: 1em
-  }
-  .group__title{
-    font-size: 2.8em;
-  }
-  .datos_usuario {
-    display: block;
-    color: #1a5414;
-    padding: 3px 5px;
-    font-weight: bold;
-    text-align: center;
-    z-index: 3000
-  }
- }
 
-@media screen and (min-width:1024px){
-/*  .container{
-   width: 1100px;
- } */
- .logo{
-   font-size: 2em;
-   padding: 0px;
- }
+  .main-nav{
+    position: relative;
+    padding: 0px
+  }
 
- .banner{
-  margin-top:-205px;
-  position: relative;
-  opacity: 0.9;
-  z-index:-2000
- }
+  .bg-menu{
+    background: #188812;
+  }
+
+  .nav-item{
+    font-size: 0.7rem;
+    padding: 1px
+  }
+
+  .social-icon [class*="icon-"]{
+    font-size: 0.8rem;
+    width:25px;
+    height: 25px;
+  }
+  
+  .social-icon__link{
+    display: inline-block
+  }
   
   .banner__img{
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 210px;
   }
- 
+  
   .banner__content{
-    font-size: 1.3rem;
-    top: 70%;
+    top:83%;
+    font-size: 1.5rem;
   }
 
- .main-header__contactInfo__phone, .main-header__contactInfo__address{
-   padding-right: 0;
-   font-size: 1em;
- }
- .main-nav{
-   padding: 0;
- }
- .banner__img{
-   height: 350px
- }
- .banner__content{
-   font-size: 2.5em;
-   top:75%
- }
- .icon-menu{
-   display: none;
- }
- .menu{
-   display: -webkit-flex;
-   display: -moz-flex;
-   display: -ms-flex;
-   display: -o-flex;
-   display: flex;
-   height: auto;
-   position: static;
-   width: auto;
- }
- .menu__link{
-   padding: 13px;
-   font-size: 0.7em;
- }
- .group--color .container{
-   margin-top: 10px;
-   margin-bottom: 30px;
-   padding: 20px;  
- }
- .main__title{
-   font-size: 2.8em;
- }
- .main__about__description .column-50:nth-child(2) .column__txt{
-   line-height: 45px;
- }
+  p a.social-icon__link{
+    display: block;
+  }
 
- .categorias__title{
-   font-size: 1.4em;
- }
- .categorias__price{
-   font-size: 1.8em;
- }
- .main-footer{
-   padding-top: 30px;
-   padding-bottom: 30px;
- }
+  .btn-cat-filter{
+    font-size: 0.8rem;
+  }
+
+  .liana{
+    display: inline;
+  }
 }
+
+@media screen and (min-width:1200px){
+  .container{
+    width: 1000px;
+  }
+  
+  h1.logo{
+    font-size: 2.5rem;
+    padding-left: 0px;
+  }
+  
+  .banner__img{
+    height: 240px;
+  }
+  
+  .banner__content{
+    top:77%;
+    font-size: 2.2rem;
+  }
+
+  .nav-item{
+    font-size: 0.8rem;
+    padding: 0px 5px
+  }
+
+  .social-icon [class*="icon-"]{
+    font-size: 01rem;
+    width:25px;
+    height: 25px;
+  }
+
+  .btn-cat-filter{
+    font-size: 0.9rem;
+  }
+}
+
 
 @media screen and (min-width:1600px){
- .content{
-   width: 1400px;
- }
- .main__about__description .column:nth-child(1) img{
-   width: 100%;
-   height: 350px;
-   object-fit: cover;
- }
- .categorias__img{
-   height: 300px;
- }
+  .container{
+    width: 1200px;
+  }
 }

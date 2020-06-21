@@ -3,11 +3,11 @@
 @section('title', 'Catálogo de productos')
 
 @section('content')
-<div>
-   <div class="row d-flex mt-2 mb-5 justify-content-center">
-      <a href="{{route('products.index')}}" class="col-sm btn bg-btn-lightgreen m-1 text-white {{(request('id') == null) ? 'active' : ''}}">Todos</a>
+<div class="container">
+   <div class="row d-flex mt-2 mb-4 justify-content-center">
+      <a href="{{route('catalog')}}" class="btn btn-cat-filter bg-btn-lightgreen m-1 text-white {{(request('id') == null) ? 'active' : ''}}">Todos</a>
       @forelse($categories as $category)
-      <a href="{{route('category_filter', $category->id)}}" class="col-sm btn bg-btn-lightgreen m-1 text-white {{(request('id') == $category->id) ? 'active' : ''}}">{{$category->category}}</a>
+      <a href="{{route('category_filter', $category->id)}}" class="btn btn-cat-filter bg-btn-lightgreen m-1 text-white {{(request('id') == $category->id) ? 'active' : ''}}">{{$category->category}}</a>
       @empty
       Sin datos
       @endforelse
@@ -15,7 +15,7 @@
 
    @include('partials._session-status')
             
-   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-between">
+   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-between">
       @forelse($products as $product)
 
       <div class="col mb-4 card-deck col-sm">
@@ -37,11 +37,7 @@
                      <button type="submit" class="btn bg-btn-lightgreen text-white btn-sm my-2">Agregar</button>
                   </div>
                </form>
-               <a href="{{ route('products.edit', $product->id)}}">Editar</a>
-               <form action="{{ route('products.destroy', $product) }}" method="POST">
-               @csrf @method('delete')
-               <button>Eliminar</button>
-               </form>
+               
             </div>
          </div>
       </div>
