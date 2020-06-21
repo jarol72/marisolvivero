@@ -1,5 +1,6 @@
-<header class="container main-header w-100 position-relative">
-   <div class="row">
+<div class="container">
+<header class=" main-header w-100 position-relative">
+   <div class=" row">
       <div class="col align-middle">
          <h1 class="logo"><a href="{{route('home')}}" class="text-white text-decoration-none">Marisol Vivero</a></h1>
       </div>
@@ -13,16 +14,19 @@
       </div>
    </div>
 </header>
+</div>
 
 @include('partials.nav')
 
 <section class="banner position-relative">
    <img src="{{ asset('siteimg/banner.jpg') }}" class="banner__img" alt="banner">
    <div class="banner__content text-white text-center position-absolute">
-      @role()
-         <p class="text-bold">Bienvenido(a) {{ auth()->user()->name }}</p>
-      @else()
-         @yield('title') 
-      @endrole
+      
+         @yield('title')
+         @auth
+            @if(Route::Is('home'))
+               {{ auth()->user()->name }}
+            @endif
+         @endauth
    </div>
 </section>

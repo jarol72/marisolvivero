@@ -10,6 +10,6 @@ class EmployeeController extends Controller
     public function index(){
         $employees = User::where('role_id', 2)->get();
 
-        return view('employees')->with('employees', $employees);
+        return view('admin.employees.employees')->with('employees', $employees);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Bienvenido a Marisol Vivero')
+@section('title', 'Bienvenido(a)')
 
 @section('content')
    <section class=" mb-4 ">

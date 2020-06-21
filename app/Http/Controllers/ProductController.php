@@ -11,12 +11,17 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     
+    public function __construct()
+    {
+        $this->middleware('auth')->except('catalog', 'show');
+    }
+    
     public function index()
     {
         $categories = Category::get();
         $products = Product::paginate(12);
         
-        return view('products.products')->with(['products' => $products, 'categories' => $categories]);
+        return view('admin.products.products')->with(['products' => $products, 'categories' => $categories]);
     }
     
     public function create()
@@ -53,5 +58,13 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('status', 'El producto fue eliminado correctamente.');
 
+    }
+
+    public function catalog()
+    {
+        $categories = Category::get();
+        $products = Product::paginate(12);
+        
+        return view('catalog')->with(['products' => $products, 'categories' => $categories]);
     }
 }

@@ -1,12 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
-<div class="card-body">
+   <div class="container">
+      <div class="card">
+         <div class="card-body">
 				<div id="divTable" class="table-responsive">
 					<table id="tblEmpleados" class="display table table-hover table-striped responsive nowrap"">
 						<thead>
-							<tr class="bg-success text-white">
+							<tr class="bg-btn-lightgreen text-white">
 								<!-- th>Id</th -->
 								<th>Nombre</th>
 								<th>Correo</th>
@@ -23,7 +25,7 @@
                            <td>{{ $employee->created_at->diffForHumans() }}</td>
                            <td>
                               <form method="POST" class="float-left" id="btnEditReg">
-                                 <button type="button" class="btn btn-sm btn-primary mr-1" name="btnEditar" id="btnEditar" value="{{ $employee->id}}">Editar</button>
+                                 <button type="button" class="btn btn-sm btn-blue mr-1" name="btnEditar" id="btnEditar" value="{{ $employee->id}}">Editar</button>
                               </form>
                               <form method="POST" class="float-left" id="btnDeleteReg">
                                  <button type="button" class="btn btn-sm btn-danger ml-1" name="btnBorrar" id="btnBorrar" value="{{ $employee->id}}">Borrar</button>
@@ -37,5 +39,7 @@
 					</table>
 				</div>
 			</div>
+		</div>
+	</div>
 
 @endsection

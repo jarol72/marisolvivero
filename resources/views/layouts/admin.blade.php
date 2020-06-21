@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
    <meta charset="utf-8">
@@ -25,17 +25,19 @@
 </head>
 <body>
    <div id="app">
+      <header>
+         @include('partials.adm_navbar')
+      </header>
 
-      @include('partials.header')
-
-      <main class="py-2 container-md content">
+      <main class="py-4 container-md content">
          @yield('content')
       </main>
 
-      @include('partials.footer')
-
+      <footer class="bg-white text-center text-black-50 py-3 shadow">
+         <small>{{ config('app.name') }} | Copyright &copy; <?= date('Y') ?> Jorge Rodríguez</small><br>
+         <small><a href="mailto:jarol72@gmail.com"></a></small>
+      </footer>
    </div>
    <script src="{{ asset('js/navbar.js') }}"></script>
-
 </body>
 </html>

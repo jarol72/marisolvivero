@@ -13,6 +13,6 @@ class CategoryController extends Controller
         $category = Category::FilterCategory($id)->first();
         $products = $category->products()->paginate(12);
         
-        return view('products.products')->with(['products' => $products, 'categories' => $categories]);
+        return view('catalog')->with(['products' => $products, 'categories' => $categories]);
     }
 }
