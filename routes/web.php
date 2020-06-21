@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,21 +13,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Product;
 
-/* Auth::routes(); */
 
+// Rutas Administrativas
+Route::middleware('admin')->prefix('admin')->group(function(){
+    // Página de inicio del área administrativa
+    Route::get('/admin', 'AdmHomeController@index')->name('admin.index');
+    // Rutas de empleados
+    Route::resource('employees', 'EmployeeController');   
+    // Rutas de clientes
+    Route::resource('clients', 'ClientController');
+    // Rutas de productos
+    Route::resource('products', 'ProductController');
+    // Rutas de facturas
+    Route::resource('invoices', 'InvoiceController');
+    
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 
-// Rutas de productos
-Route::get('products/category/{id}', 'CategoryController@filter')->name('category_filter');
-Route::resource('products', 'ProductController');
-
-// Rutas de empleados
-Route::resource('employees', 'EmployeeController');   
-
-// Rutas de clientes
-Route::resource('clients', 'ClientController');
+// Rutas del catálogo
+Route::get('catalog', 'ProductController@catalog')->name('catalog');
+Route::get('catalog/category/{id}', 'CategoryController@filter')->name('category_filter');
 
 // Rutas de contacto
 Route::view('contact', 'contact')->name('contact');
@@ -37,9 +46,3 @@ Route::view('who', 'who')->name('who');
 Route::view('help', 'help')->name('help');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-// Rutas Administrativas
-Route::get('/admin', 'AdmHomeController@index')->name('admin.index');
-

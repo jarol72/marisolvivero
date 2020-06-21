@@ -22,7 +22,11 @@
    <img src="{{ asset('siteimg/banner.jpg') }}" class="banner__img" alt="banner">
    <div class="banner__content text-white text-center position-absolute">
       
-         @yield('title') 
-      
+         @yield('title')
+         @auth
+            @if(Route::Is('home'))
+               {{ auth()->user()->name }}
+            @endif
+         @endauth
    </div>
 </section>

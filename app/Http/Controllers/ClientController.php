@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     public function index(){
-        $clients = User::paginate(10)->where('role_id', 3)->get();
+        $clients = User::where('role_id', 3)->paginate(10);
 
-        return view('clients')->with('clients', $clients);
+        return view('admin.clients.clients')->with('clients', $clients);
     }
 }

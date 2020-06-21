@@ -6,19 +6,19 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
          <ul class="navbar-nav mr-auto mt-lg-0 bg-menu">
             <li class="nav-item  {{ setActive('home') }}">
-               <a class="nav-link text-white px-1" href="{{route('home')}}">@lang('Inicio')</a>
+               <a class="nav-link text-white px-1" href="{{route('home')}}">@lang('Home')</a>
             </li>
-            <li class="nav-item {{ setActive('products.index') }} {{ setActive('category_filter') }}">
-               <a class="nav-link text-white px-1" href="{{route('products.index')}}">@lang('Productos')</a>
+            <li class="nav-item {{ setActive('catalog') }} {{ setActive('category_filter') }}">
+               <a class="nav-link text-white px-1" href="{{route('catalog')}}">@lang('Catalog')</a>
             </li>
             <li class="nav-item {{ setActive('who') }}">
-               <a class="nav-link text-white px-1" href="{{route('who')}}">@lang('Quiénes somos')</a>
+               <a class="nav-link text-white px-1" href="{{route('who')}}">@lang('About us')</a>
             </li>
             <li class="nav-item {{ setActive('contact') }}">
-               <a class="nav-link text-white px-1e" href="{{route('contact')}}">@lang('Contacto')</a>
+               <a class="nav-link text-white px-1e" href="{{route('contact')}}">@lang('Contact')</a>
             </li>
             <li class="nav-item {{ setActive('help') }}">
-               <a class="nav-link text-white px-1" href="{{route('help')}}">@lang('Ayuda')</a>
+               <a class="nav-link text-white px-1" href="{{route('help')}}">@lang('Help')</a>
             </li>
             
          </ul>
@@ -36,7 +36,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
