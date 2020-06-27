@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 // Rutas Administrativas
 Route::middleware('admin')->prefix('admin')->group(function(){
     // Página de inicio del área administrativa
-    Route::get('/admin', 'AdmHomeController@index')->name('admin.index');
+    Route::get('/home', 'AdmHomeController@index')->name('admin.index');
     // Rutas de empleados
     Route::resource('employees', 'EmployeeController');   
     // Rutas de clientes
@@ -46,3 +47,6 @@ Route::view('who', 'who')->name('who');
 Route::view('help', 'help')->name('help');
 
 Auth::routes();
+
+// Ruta para el buscado en tiempo real
+Route::get('clients/search', 'ClientController@search');
