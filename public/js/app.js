@@ -37226,10 +37226,9 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-$(document).ready(function () {
-  $('#infTable').DataTable();
-});
+/* $(document).ready( function () {
+    $('#infTable').DataTable();
+} ); */
 
 /***/ }),
 
