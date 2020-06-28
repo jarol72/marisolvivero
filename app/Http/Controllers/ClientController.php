@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
-use App\User;
+use App\Exports\ClientsExport;
 
 class ClientController extends Controller
 {
@@ -114,6 +115,18 @@ class ClientController extends Controller
         $client->delete();
 
         return redirect()->route('clients.index');
+    }
+
+    public function xls() 
+    {
+        $clientsExport = new ClientsExport;
+        return $clientsExport->download('Clientes ' . date('Ymd') . '.xlsx');
+    }
+    
+    public function pdf() 
+    {
+        $clientsExport = new ClientsExport;
+        return $clientsExport->download('Clientes ' . date('Ymd') . '.pdf');
     }
 
 }

@@ -157,7 +157,7 @@
                 <a href="{{ route('admin.index') }}" class="brand-link">
                     <img src="{{ asset('siteimg/solo_arbol.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
                         style="opacity: .8">
-                    <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
+                    <span class="brand-text font-weight-normal text-white">{{ config('app.name') }}</span>
                 </a>
 
                 <!-- Sidebar -->
@@ -206,8 +206,38 @@
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>
                                         @lang('Clients')
-                                        <?php use App\User; $users_count = User::where('role_id', 3)->count(); ?>
-                                        <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
+                                        <?php
+                                            use App\User;
+                                            use App\Product;
+                                            $clients_count = User::where('role_id', 3)->count();
+                                            $employees_count = User::where('role_id', 2)->count();
+                                            $products_count = Product::all()->count();
+                                        ?>
+                                        <span class="right badge badge-danger">{{ $clients_count ?? '0' }}</span>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{route('employees.index')}}"
+                                    class="nav-link {{ setActive('employees') }}">
+                                    <i class="nav-icon fas fa-users-cog"></i>
+                                    <p>
+                                        @lang('Employees')
+                                        
+                                        <span class="right badge badge-danger">{{ $employees_count ?? '0' }}</span>
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{route('products.index')}}"
+                                    class="nav-link {{ setActive('products') }}">
+                                    <i class="nav-icon fas fa-seedling"></i>
+                                    <p>
+                                        @lang('Products')
+                                        
+                                        <span class="right badge badge-danger">{{ $products_count ?? '0' }}</span>
                                     </p>
                                 </a>
                             </li>
@@ -258,7 +288,7 @@
                  /.content-header -->
 
                 <!-- Main content -->
-                <section class="content mt-2"> 
+                <section class="content mt-3"> 
                     @yield('content')
                 </section>
                 <!-- /.content -->

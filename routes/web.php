@@ -18,14 +18,25 @@ use Illuminate\Support\Facades\Auth;
 
 // Rutas Administrativas
 Route::middleware('admin')->prefix('admin')->group(function(){
+    
     // Página de inicio del área administrativa
     Route::get('/home', 'AdmHomeController@index')->name('admin.index');
+    
     // Rutas de empleados
+    Route::get('employees/xls', 'EmployeeController@xls')->name('employees.xls');
+    Route::get('employees/pdf', 'EmployeeController@pdf')->name('employees.pdf');
     Route::resource('employees', 'EmployeeController');   
+    
     // Rutas de clientes
+    Route::get('clients/xls', 'ClientController@xls')->name('clients.xls');
+    Route::get('clients/pdf', 'ClientController@pdf')->name('clients.pdf');
     Route::resource('clients', 'ClientController');
+    
     // Rutas de productos
+    Route::get('products/xls', 'ProductController@xls')->name('products.xls');
+    Route::get('products/pdf', 'ProductController@pdf')->name('products.pdf');
     Route::resource('products', 'ProductController');
+    
     // Rutas de facturas
     Route::resource('invoices', 'InvoiceController');
     
@@ -50,3 +61,4 @@ Auth::routes();
 
 // Ruta para el buscado en tiempo real
 Route::get('clients/search', 'ClientController@search');
+
