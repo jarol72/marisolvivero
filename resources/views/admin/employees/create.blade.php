@@ -6,10 +6,10 @@
         <div class="col-sm-6 m-auto">
             <div class="card">
                 <div class="card-header bg-btn-green text-white">
-                  <h5 class='m-0'>@lang('New Product')</h5>
+                  <h5 class='m-0'>@lang('New Employee')</h5>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('products.store') }}" class="mb-0">
+                    <form method="POST" action="{{ route('employees.store') }}" class="mb-0">
                         @csrf
                         <div class="form-group">
                             <label for="name">@lang('Name')</label>

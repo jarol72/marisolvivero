@@ -11084,3 +11084,13 @@ a.text-dark:focus {
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
 
+input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+select {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+

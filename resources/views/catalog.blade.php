@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
+   <!-- BOTONES PARA FILTROS POR CATEGORÍA -->
    <div class="row d-flex mt-2 mb-4 justify-content-center">
       <a href="{{route('catalog')}}" class="btn btn-cat-filter bg-btn-lightgreen m-1 text-white {{(request('id') == null) ? 'active' : ''}}">Todos</a>
       @forelse($categories as $category)
@@ -11,7 +12,7 @@
       @empty
       Sin datos
       @endforelse
-   </div>
+   </div> <!-- FIN BOTONES PARA FILTROS POR CATEGORÍA -->
 
    @include('partials._session-status')
             
