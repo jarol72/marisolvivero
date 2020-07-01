@@ -34,8 +34,9 @@ Route::middleware('admin')->prefix('admin')->group(function(){
     
     // Rutas de productos
     Route::get('products/xls', 'ProductController@xls')->name('products.xls');
-    Route::get('products/pdf', 'ProductController@pdf')->name('products.pdf');
+    Route::get('products/pdf/{category?}', 'ProductController@pdf')->name('products.pdf');
     Route::resource('products', 'ProductController');
+    Route::get('products/category/{id}', 'CategoryController@filter')->name('adm_category_filter');
     
     // Rutas de facturas
     Route::resource('invoices', 'InvoiceController');

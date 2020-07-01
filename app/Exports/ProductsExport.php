@@ -3,10 +3,12 @@
 namespace App\Exports;
 
 use App\Product;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ProductsExport implements FromCollection
+class ProductsExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     use Exportable;
     
@@ -15,6 +17,33 @@ class ProductsExport implements FromCollection
     */
     public function collection()
     {
-        return Product::all()->select('id', 'comm_name', 'scientific_name','cost','stock')->get();
+        return Product::select('id', 'category_id', 'common_name', 'scientific_name','cost','stock')->get();
     }
+    
+    public function headings(): array
+    {
+        return [
+            'Id',
+            'Categoría',
+            'Nombre Común',
+            'Nombre Científico',
+            'Costo',
+            'Existencias',
+        ];
+    }
+
+    public function map($product): array
+    {
+        return [
+            $product->id,
+            $product->category,
+            $product->common_name,
+            $product->scientific_name,
+            $product->cost,
+            $product->stock
+        ];
+    }
+    
+    
+
 }

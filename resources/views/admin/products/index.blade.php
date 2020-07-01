@@ -4,22 +4,35 @@
 
 <div class="container">
    <h2 class="text-center text-bold">@lang('Products')</h2>
-   <div class="d-flex justify-content-between mb-1 ml-0">
-      @include('partials._searchForm')
-      <div>   
-         <!-- Botón nuevo usuario -->
-         <a href="{{ route('products.create') }}" class="float-right"><button type="button" class="btn bg-btn-lightgreen text-white float-right"><i class="fas fa-user-plus"></i> @lang('New product')</button></a>
+   <div class="d-flex justify-content-between align-items-center mb-1 ml-0">
+      {{-- @include('partials._searchForm') --}}
+      
+      <!-- BOTONES PARA FILTROS POR CATEGORÍA -->
+      <div class="d-flex mt-3 mb-2 btn-group-justified p-0">
+         <span class="mr-2 text-bold align-self-center">Filtrar: </span>
+         <a href="{{route('products.index')}}" class="btn btn-sm btn-cat-filter bg-btn-lightgreen  ml-0 text-white {{(request('id') == null) ? 'active' : ''}}">Todos</a>
+         @forelse($categories as $category)
+         <a href="{{route('adm_category_filter', $category->id)}}" class="btn btn-sm btn-cat-filter bg-btn-lightgreen ml-1 border-left text-white {{(request('id') == $category->id) ? 'active' : ''}}">{{$category->category}}</a>
+         @empty
+         Sin datos
+         @endforelse
+      </div> <!-- FIN BOTONES PARA FILTROS POR CATEGORÍA -->
+
+      <div class="d-flex mt-3 mb-2 btn-group-justified p-0">   
+         <!-- Exportar a XLS -->
+         <a href="{{ route('products.xls') }}" class="float-right mr-3"><button type="button" class="btn btn-sm float-right p-0" style="color: #217346"><i class="far fa-file-excel fa-2x"></i></button></a>
          
          <!-- Exportar a PDF -->
-         <a href="{{ route('products.pdf') }}" class="float-right mr-2"><button type="button" class="btn btn-sm btn-danger text-white float-right"><i class="far fa-file-pdf fa-2x"></i></button></a>
+         <a href="{{ route('products.pdf') }}" class="float-right mr-3"><button type="button" class="btn btn-sm text-danger  float-right p-0"><i class="far fa-file-pdf fa-2x"></i></button></a>
          
-         <!-- Exportar a XLS -->
-         <a href="{{ route('products.xls') }}" class="float-right mr-2"><button type="button" class="btn btn-sm bg-btn-lightgreen text-white float-right" style="background-color: #217346"><i class="far fa-file-excel fa-2x"></i></button></a>
+         <!-- Botón nuevo usuario -->
+         <a href="{{ route('products.create') }}" class="float-right"><button type="button" class="btn btn-sm bg-btn-lightgreen text-white float-right"><i class="fas fa-user-plus"></i> @lang('New product')</button></a>
       </div>   
    </div>   
 
-   <div id="searchResults"></div>
-   <div class="content mt-3">
+
+   
+   <div class="content mt-1">
       <div id="divTable" class="table-responsive">
          <table id="infTable" class="display table table-hover table-striped responsive nowrap">
             <thead>
@@ -60,8 +73,8 @@
       </div>
    </div>
    <!-- Enlaces de paginación -->
-   <div class="row m-auto justify-content-center">
-      {{$products->links()}}
-   </div>
+   <!-- div class="row m-auto justify-content-center">
+      {{-- $products->links() --}}
+   </div -->
 </div>
 @endsection

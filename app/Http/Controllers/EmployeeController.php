@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
 use App\Exports\EmployeesExport;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class employeeController extends Controller
 {
@@ -22,8 +23,8 @@ class employeeController extends Controller
     public function index(Request $request)
     {
         $employees = User::where('role_id', 2)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(10);
+                        ->orderBy('name', 'asc')
+                        ->get();
     
         return view('admin.employees.index', compact('employees'));
     }
@@ -126,8 +127,16 @@ class employeeController extends Controller
 
     public function pdf() 
     {
-        $employeesExport = new EmployeesExport;
-        return $employeesExport->download('Employeees ' . date('Ymd') . '.pdf');
+        $employees = User::where('role_id', 2)->orderBy('name')->get(); 
+
+        $pdf = PDF::loadView('admin.employees.pdf', compact('employees'));
+        $pdf->setPaper('letter', 'portrait');
+
+        return $pdf->stream('listado.pdf');
+        
+        
+        /* $employeesExport = new EmployeesExport;
+        return $employeesExport->download('Employeees ' . date('Ymd') . '.pdf'); */
         
     }
 

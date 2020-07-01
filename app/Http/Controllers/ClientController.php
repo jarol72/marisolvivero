@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
 use App\Exports\ClientsExport;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ClientController extends Controller
 {
@@ -23,7 +24,7 @@ class ClientController extends Controller
     {
         $clients = User::where('role_id', 3)
                         ->orderBy('created_at', 'desc')
-                        ->paginate(10);
+                        ->get();
     
         return view('admin.clients.index', compact('clients'));
     }
@@ -125,8 +126,15 @@ class ClientController extends Controller
     
     public function pdf() 
     {
-        $clientsExport = new ClientsExport;
-        return $clientsExport->download('Clientes ' . date('Ymd') . '.pdf');
-    }
+        $clients = User::where('role_id', 2)->orderBy('name')->get(); 
 
+        $pdf = PDF::loadView('admin.clients.pdf', compact('clients'));
+        $pdf->setPaper('letter', 'portrait');
+
+        return $pdf->stream('listado.pdf');
+        
+        
+        /* $clientsExport = new ClientsExport;
+        return $clientsExport->download('Clientes ' . date('Ymd') . '.pdf'); */
+    }
 }

@@ -4,21 +4,21 @@
 
 <div class="container">
    <h2 class="text-center text-bold">@lang('Registered Clients')</h2>
-   <div class="d-flex justify-content-between mb-1 ml-0">
-      @include('partials._searchForm')
+   <div class="d-flex justify-content-end mb-1 ml-0">
+      {{-- @include('partials._searchForm') --}}
       <div>   
          <!-- Botón nuevo usuario -->
-         <a href="{{ route('clients.create') }}" class="float-right"><button type="button" class="btn bg-btn-lightgreen text-white float-right"><i class="fas fa-user-plus"></i> @lang('New Client')</button></a>
+         <a href="{{ route('clients.create') }}" class="float-right"><button type="button" class="btn btn-sm bg-btn-lightgreen text-white float-right"><i class="fas fa-user-plus"></i> @lang('New Client')</button></a>
          
          <!-- Exportar a PDF -->
-         <a href="{{ route('clients.pdf') }}" class="float-right mr-2"><button type="button" class="btn btn-sm btn-danger text-white float-right"><i class="far fa-file-pdf fa-2x"></i></button></a>
+         <a href="{{ route('clients.pdf') }}" class="float-right mr-3"><button type="button" class="btn btn-sm btn-sm text-danger float-right p-0"><i class="far fa-file-pdf fa-2x"></i></button></a>
          
          <!-- Exportar a XLS -->
-         <a href="{{ route('clients.xls') }}" class="float-right mr-2"><button type="button" class="btn btn-sm bg-btn-lightgreen text-white float-right" style="background-color: #217346"><i class="far fa-file-excel fa-2x"></i></button></a>
+         <a href="{{ route('clients.xls') }}" class="float-right mr-3"><button type="button" class="btn btn-sm btn-sm float-right p-0" style="color: #217346"><i class="far fa-file-excel fa-2x"></i></button></a>
       </div>   
    </div>   
 
-   <div id="searchResults"></div>
+   
    <div class="content mt-3">
       <div id="divTable" class="table-responsive">
          <table id="infTable" class="display table table-hover table-striped responsive nowrap">
@@ -56,8 +56,8 @@
       </div>
    </div>
    <!-- Enlaces de paginación -->
-   <div class="row m-auto justify-content-center">
-      {{$clients->links()}}
-   </div>
+   <!-- div class="row m-auto justify-content-center">
+      {{-- $clients->links() --}}
+   </div -->
 </div>
 @endsection

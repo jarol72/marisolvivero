@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
-use Illuminate\Http\Request;
 use App\Http\Requests\SaveProductRequest;
 use App\Exports\ProductsExport;
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 class ProductController extends Controller
@@ -20,7 +20,7 @@ class ProductController extends Controller
     public function index()
     {
         $categories = Category::get();
-        $products = Product::paginate(10);
+        $products = Product::get();
         
         return view('admin.products.index')->with(['products' => $products, 'categories' => $categories]);
     }
@@ -83,15 +83,19 @@ class ProductController extends Controller
 
     public function xls() 
     {
-        $employeesExport = new ProductsExport;
-        return $employeesExport->download('Products ' . date('Ymd') . '.xlsx');
+        $productsExport = new ProductsExport;
+        return $productsExport->download('Products ' . date('Ymd') . '.xlsx');
         
     }
 
     public function pdf() 
     {
-        $employeesExport = new ProductsExport;
-        return $employeesExport->download('Products ' . date('Ymd') . '.pdf');
-        
+        $categories = Category::all();
+        $products = Product::orderBy('common_name')->get(); 
+
+        $pdf = PDF::loadView('admin.products.pdf', compact('products', 'categories'));
+        $pdf->setPaper('letter', 'landscape');
+
+        return $pdf->stream('listado.pdf');
     }
 }

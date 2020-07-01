@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "barryvdh/laravel-dompdf": "^0.8.6",
+        "barryvdh/laravel-snappy": "^0.4.7",
         "dompdf/dompdf": "^0.8.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
@@ -16,7 +18,10 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "maatwebsite/excel": "^3.1"
+        "maatwebsite/excel": "^3.1",
+        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3",
+        "yajra/laravel-datatables-buttons": "^4.9",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
