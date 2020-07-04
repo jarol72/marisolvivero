@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('cost');
             $table->bigInteger('stock');
             $table->text('use');
-            $table->string('image');
+            $table->string('image')->default('productsimg/provisionalproducto.jpeg');
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';

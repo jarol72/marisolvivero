@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserFormRequest;
 use App\Exports\EmployeesExport;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Hash;
 
 class employeeController extends Controller
 {
@@ -48,15 +48,20 @@ class employeeController extends Controller
      */
     public function store(Request $request)
     {
+        $request['password'] = Hash::make($request['password']);
+        
+        $this->validate($request,[
+            'role_id' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:App\User,email',
+            'password' => 'required'
+        ]);
+
         $user = new User();
+ 
+        $user->create($request->all());
 
-        $user->name = request('name');
-        $user->email = request('email');
-        $user->password = request('password');
-
-        $user->save();
-
-        return redirect()->route('employees.index');
+        return redirect()->route('clients.create')->with('status', 'El cliente fue creado correctamente.');
     }
 
     /**
@@ -90,16 +95,18 @@ class employeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserFormRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
-        
-        $user->update();
+        $this->validate($request,[
+            'id' => 'required',
+            'role_id' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:App\User,email,'.$id,
+        ]);
+ 
+        User::findOrFail($id)->update($request->all());
 
-        return redirect()->route('employees.index');
+        return redirect()->route('clients.edit')->with('status', 'El empleado fue actualizado correctamente.');
         
     }
 

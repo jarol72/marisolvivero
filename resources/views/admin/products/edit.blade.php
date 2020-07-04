@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
    <div class="row">
-      <div class="col-sm-7 m-auto">
+      <div class="col-md-10 m-auto">
          <div class="card">
             <div class="card-header bg-btn-green text-white">
                <h5 class='m-0'>@lang('Edit Product') - {{$product->common_name}}</h5>
@@ -18,12 +18,16 @@
                   </ul>
                </div>
                @endif
-               <form method="POST" action="{{ route('products.update', $product->id) }}" class="mb-0">
+               @include('partials._session-status')
+               <div class="row">
+               <div class="col col-6">
+               <form method="POST" action="{{ route('products.update', $product->id) }}" class="mb-0" enctype="multipart/form-data">
                   @csrf @method('PATCH')
+                  <input type="hidden" name="id" class="form-control w-100" id="id" value="{{ old('id',$product->id) }}">
                   <div class="form-group col col-6 pl-0 mb-0">
                      <label for="category" class="col-form-label">{{__('Categoría')}}</label>
                      
-                        <select name="category" class="custom-select" id="category">
+                        <select name="category_id" class="custom-select" id="category_id">
                            <option selected>Seleccione...</option>
                            @foreach($categories as $category)
                            <option value="{{ $category->id }}" {{ setOptionSelected($category->id, $product->category_id) }}>{{ $category->category }}</option>
@@ -61,28 +65,33 @@
 
                   <div class="form-group py-2 mb-0">
                      <label for="use" class="">{{__('Uso')}}</label>
-                     <textarea name="use" class="form-control" id="use" cols="30" rows="3    ">{{ old('use', $product->use) }}</textarea>
+                     <textarea name="use" class="form-control" id="use" cols="30" rows="6    ">{{ old('use', $product->use) }}</textarea>
                         {!! $errors->first('use', '<small>:message</small>') !!}
                   </div>
-
-                  <div class="form-inline">
-                     <div class="form-group col-6 px-0 px-0">
-                        <label for="img" class="">{{__('Imagen')}}</label>
-                        <div class="custom-file">
-                           <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                           <label class="custom-file-label" for="inputGroupFile01">{{old('image', $product->image)}}</label>
-                        </div>
-                        {!! $errors->first('img', '<small>:message</small>') !!}
-                        <div class="d-flex justify-content-around mt-3 w-100">
-                           <button type="submit" class="btn bg-btn-lightgreen text-white">@lang('Save Changes')</button>
-                           <button type="button" class="btn btn-danger" onclick="window.history.go(-1); return false;">@lang('Cancel')</button>
-                        </div>
-                     </div>
-                     <div class="col col-6 text-center">
-                        <img src="{{ asset('siteimg/silueta_planta.png') }}" class="" height="113.03" alt="">
-                     </div>
+                  
                   </div>
 
+                  
+                  <div class="col col-6">
+                  <div class="">
+                     <label for="image" class="col-form-label">{{__('Imagen')}}</label>
+                     <input type="file" name="image" class="w-100">
+                     @error('image')<span class="invalid-feedback " role="alert"><strong>{{ $message }}</strong></span>@enderror
+                  </div>
+                  
+                  <div class="mt-2">
+                     <div class="text-center">
+                        <img src="/{{ $product->image}}" class="img-responsive img-rounded border border-gray shadow img-thumbnail" alt="">
+                     </div>
+                     <div class="form-group px-0">
+                        <div class="d-flex justify-content-around mt-4 w-100">
+                           <button type="submit" class="btn bg-btn-lightgreen text-white m-2 w-75">@lang('Save')</button>
+                           <a href="{{ route('products.index') }}" class="btn btn-danger m-2 w-75">@lang('Cancel')</a>
+                        </div>
+                     </div>
+                  </div>
+                  </div>
+                  </div>
                </form>
             </div>
          </div>

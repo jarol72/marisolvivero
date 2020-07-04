@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
-use App\Http\Requests\SaveProductRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Exports\ProductsExport;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -31,11 +32,27 @@ class ProductController extends Controller
         return view('admin.products.create')->with(['product' => new Product,  'categories' => $categories]);
     }
 
-    public function store(SaveProductRequest $request)
+    public function store(Request $request)
     {
-        Product::create($request->validated());
-
-        return redirect()->route('products.create')->with('status', 'El producto fue registrado correctamente.');
+        $request->file('image')->store('public/productimg');
+        
+        $this->validate($request,[
+            
+            'category_id' => 'required',
+            'common_name' => 'required|unique:App\Product,common_name',
+            'scientific_name' => 'required|unique:App\Product,scientific_name',
+            'cost' => 'required|Integer|min:0',
+            'stock' => 'required|Integer|min:0',
+            'use' => 'required',
+            'image' => 'required'
+            ]);
+            
+        $product = new Product();
+        
+        $product->create($request->all());
+        
+        return redirect()->route('products.create')->with('status', 'El producto fue creado correctamente.');
+        
     }
 
     /**
@@ -53,16 +70,30 @@ class ProductController extends Controller
     public function edit($id)
     {
         $categories = Category::get();
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         return view('admin.products.edit')->with(['product' => $product, 'categories' => $categories]);
     }
 
-    public function update(Product $product, SaveProductRequest $request)
+    public function update(Request $request, $id)
     {
-        $product->update($request->validated());
+        $this->validate($request,[
+            'id' => 'required',
+            'category_id' => 'required',
+            'common_name' => 'required|unique:App\Product,common_name,'.$id,
+            'scientific_name' => 'required|unique:App\Product,scientific_name,'.$id,
+            'cost' => 'required|Integer|min:0',
+            'stock' => 'required|Integer|min:0',
+            'use' => 'required',
+            'image' => 'required'
+        ]);
+ 
+        $product = Product::findOrFail($id);
+        
+        $product->image = $request->file('image')->store('productsimg');
+        
+        $product->update($request->except('image'));
 
-        return redirect()->route('products.edit')->with('status', 'El producto fue actualizado correctamente.');
-
+        return redirect()->route('products.edit', $id)->with('status', 'El producto fue actualizado correctamente.');
     }
 
     public function destroy(Product $product)
@@ -97,5 +128,53 @@ class ProductController extends Controller
         $pdf->setPaper('letter', 'landscape');
 
         return $pdf->stream('listado.pdf');
+    }
+
+    public function inout($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('admin.products.inout')->with(['product' => $product]);
+    }
+    
+    public function transaction(Request $request, $id) 
+    {
+        $this->validate($request,[
+            'id' => 'required',
+            'quantity' => 'required|integer',
+            'type' => 'required',
+            'reason' => 'required',
+        ]);
+        $id = $request['id'];
+        $type = $request['type'];
+        $quantity = $request['quantity'];
+
+        $product = Product::findOrFail($id);
+        
+        switch($type){
+            case 'entrada':
+                $product->stock += $quantity;
+                $operation = 'agregado';
+            break;
+
+            case 'salida':
+                $product->stock -= $quantity;
+                $operation = 'disminuido';
+            break;
+
+            default:
+                print ('<script>alert("No ha seleccionado el tipo de operación");</script>');
+            }
+        
+        $product->update($request->only('quantity'));
+
+        DB::table('product_transactions')->insert([
+            'product_id' => $id,
+            'user_id' => auth()->user()->id,
+            'type' => $type,
+            'quantity' => $quantity,
+            'created_at' => new \DateTime
+        ]);
+
+        return redirect()->route('products.show', $id)->with('status', 'Se han ' . $operation . ' ' . $quantity . ' unidades al producto ' . $product->common_name);
     }
 }
