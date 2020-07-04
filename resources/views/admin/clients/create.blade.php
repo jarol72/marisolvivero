@@ -9,25 +9,29 @@
                   <h5 class='m-0'>@lang('New Client')</h5>
                 </div>
                 <div class="card-body">
+                    @include('partials._session-status')
                     <form method="POST" action="{{ route('clients.store') }}" class="mb-0">
                         @csrf
+                        <input type="hidden" name="role_id" class="form-control w-100" id="id" value="3">
                         <div class="form-group">
                             <label for="name">@lang('Name')</label>
-                            <input type="text" class="form-control" name="name" aria-describedby="name">
+                            <input type="text" name="name"  class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                            @error('name')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </div>
                         <div class="form-group">
                             <label for="email">@lang('E-Mail Address')</label>
-                            <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
-                            <small id="emailHelp" class="form-text text-muted">@lang("We'll never share your email with anyone else.")</small>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+                            @error('email')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </div>
                         <div class="form-group">
                             <label for="password">@lang('Password')</label>
-                            <input type="password" class="form-control" name="password">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password">
+                            @error('password')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </div>
                         <div>
                             <button type="submit" class="btn bg-btn-lightgreen text-white">@lang('Create User')</button>
                             <button type="reset" class="btn btn-blue">@lang('Reset Fields')</button>
-                            <button type="button" class="btn btn-danger" onclick="window.history.go(-1); return false;">@lang('Cancel')</button>
+                            <a href="{{ route('clients.index') }}" class="btn btn-danger">@lang('Cancel')</a>
                         </div>
                     </form>
                 </div>

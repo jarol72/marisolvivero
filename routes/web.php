@@ -33,6 +33,8 @@ Route::middleware('admin')->prefix('admin')->group(function(){
     Route::resource('clients', 'ClientController');
     
     // Rutas de productos
+    Route::get('products/inout/{id}', 'ProductController@inout')->name('products.inout');
+    Route::get('products/transaction/{id}', 'ProductController@transaction')->name('products.transaction');
     Route::get('products/xls', 'ProductController@xls')->name('products.xls');
     Route::get('products/pdf/{category?}', 'ProductController@pdf')->name('products.pdf');
     Route::resource('products', 'ProductController');

@@ -4,6 +4,7 @@
 
 <div class="container">
    <h2 class="text-center text-bold">@lang('Registered Clients')</h2>
+   @include('partials._session-status')
    <div class="d-flex justify-content-end mb-1 ml-0">
       {{-- @include('partials._searchForm') --}}
       <div>   
@@ -27,7 +28,8 @@
                   <!-- th>Id</th -->
                   <th class="align-middle py-2">Nombre</th>
                   <th class="align-middle py-2">Correo</th>
-                  <th class="align-middle py-2">Cliente desde</th>
+                  <th class="align-middle py-2">Registrado</th>
+                  <th class="align-middle py-2">Registrado</th>
                   <th class="align-middle py-2 text-center">Acciones</th>
                </tr>
             </thead>
@@ -37,7 +39,8 @@
                   <!-- td>{{ $client->id }}</td -->
                   <td class="align-middle py-0">{{ $client->name }}</td>
                   <td class="align-middle py-0">{{ $client->email }}</td>
-                  <td class="align-middle py-0">{{ $client->created_at->diffForHumans() }}</td>
+                  <td class="align-middle py-0 display-none">{{ $client->created_at }}</small></span></td>
+                  <td class="align-middle py-0">{{ $client->created_at->format('Y-M-d') }} <small class="text-secondary float-right">({{ $client->created_at->diffForHumans() }})</small></span></td>
                   <td class="align-middle text-center py-0">
                      <form action="{{ route('clients.destroy', $client->id) }}" method="POST">
                         <a type="button" href="{{ route('clients.show', $client->id) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnEditar" id="btnEditar" value="{{ $client->id}}"><i class="far fa-eye"></i></a>
@@ -61,3 +64,46 @@
    </div -->
 </div>
 @endsection
+
+@push('dt')
+<script>  // https://eldesvandejose.com/2016/12/05/el-plugin-datatables-iv-mejorando-el-aspecto/
+   $(document).ready( function () {
+       $('#infTable').DataTable({
+         "columnDefs": [
+            {
+                "targets": [ 2 ],
+                "visible": false,
+                "searchable": false
+            },
+         ],
+         "order": [[ 2, "desc" ]],
+         "language": {
+         "emptyTable":           "No hay datos disponibles en la tabla.",
+         "info":                 "Del _START_ al _END_ de _TOTAL_ ",
+         "infoEmpty":            "Mostrando 0 registros de un total de 0.",
+         "infoFiltered":         "(filtrados de un total de _MAX_ registros)",
+         "infoPostFix":          "(actualizados)",
+         "lengthMenu":           "Mostrar _MENU_ registros",
+         "loadingRecords":       "Cargando...",
+         "processing":           "Procesando...",
+         "search":               "Buscar:",
+         "searchPlaceholder":    "Dato para buscar...",
+         "zeroRecords":          "No se han encontrado coincidencias.",
+         "paginate": {
+            "first":			"Primera",
+            "last":				"Última",
+            "next":				"Siguiente",
+            "previous":			"Anterior"
+         },
+         "aria": {
+            "sortAscending":	"Ordenación ascendente",
+            "sortDescending":	"Ordenación descendente"
+         }
+      },
+      "lengthMenu":		[[5, 10, 20, 25, 50, -1], [5, 10, 20, 25, 50, "Todos"]],
+      "iDisplayLength":	10,
+      "bJQueryUI":		false,
+      });
+} );
+</script>
+@endpush

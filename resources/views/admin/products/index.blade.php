@@ -57,10 +57,11 @@
                   <td class="align-middle py-0 text-center">{{ $product->stock }}</td>
                   <td class="align-middle text-center py-0">
                      <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                        <a type="button" href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnEditar" id="btnEditar" value="{{ $product->id}}"><i class="far fa-eye"></i></a>
-                        <a type="button" href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-blue m-1 text-white" name="btnEditar" id="btnEditar" value="{{ $product->id}}"><i class="fas fa-pencil-alt"></i></a>
+                        <a type="button" href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnView" id="btnView" value="{{ $product->id}}"><i class="far fa-eye"></i></a>
+                        <a type="button" href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-blue m-1 text-white" name="btnEdit" id="btnEdit" value="{{ $product->id}}"><i class="fas fa-pencil-alt"></i></a>
+                        <a type="button" href="{{ route('products.inout', $product->id) }}" class="btn btn-sm btn-warning m-1" name="btnTransaction" id="btnTransaction" value="{{ $product->id}}"><i class="fas fa-exchange-alt"></i></a>
                         @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnBorrar" value="{{ $product->id}}"><i class="far fa-trash-alt"></i></button>
+                        <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnDelete" value="{{ $product->id}}"><i class="far fa-trash-alt"></i></button>
                      </form>
 
                   </td>
@@ -78,3 +79,39 @@
    </div -->
 </div>
 @endsection
+
+@push('dt')
+<script>  // https://eldesvandejose.com/2016/12/05/el-plugin-datatables-iv-mejorando-el-aspecto/
+   $(document).ready( function () {
+       $('#infTable').DataTable({
+           "order": [[ 1, "asc" ]],
+           "language": {
+           "emptyTable":           "No hay datos disponibles en la tabla.",
+           "info":                 "Del _START_ al _END_ de _TOTAL_ ",
+           "infoEmpty":            "Mostrando 0 registros de un total de 0.",
+           "infoFiltered":         "(filtrados de un total de _MAX_ registros)",
+           "infoPostFix":          "(actualizados)",
+           "lengthMenu":           "Mostrar _MENU_ registros",
+           "loadingRecords":       "Cargando...",
+           "processing":           "Procesando...",
+           "search":               "Buscar:",
+           "searchPlaceholder":    "Dato para buscar...",
+           "zeroRecords":          "No se han encontrado coincidencias.",
+           "paginate": {
+              "first":			"Primera",
+              "last":				"Última",
+              "next":				"Siguiente",
+              "previous":			"Anterior"
+           },
+           "aria": {
+              "sortAscending":	"Ordenación ascendente",
+              "sortDescending":	"Ordenación descendente"
+           }
+        },
+        "lengthMenu":		[[5, 10, 20, 25, 50, -1], [5, 10, 20, 25, 50, "Todos"]],
+        "iDisplayLength":	10,
+        "bJQueryUI":		false,
+       });
+} );
+</script>
+@endpush

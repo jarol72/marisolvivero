@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Product;
 
 class SaveProductRequest extends FormRequest
 {
@@ -21,16 +22,17 @@ class SaveProductRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules($id)
     {
         return [
-            'category_id' => 'required',
-            'common_name' => 'required|unique:App\Product,common_name',
-            'scientific_name' => 'required|unique:App\Product,scientific_name',
-            'cost' => 'required|Integer|min:0',
-            'stock' => 'required|Integer|min:0',
-            'use' => 'required',
-            'image' => 'requiered'
+                'id' => 'required',
+                'category_id' => 'required',
+                'common_name' => 'required|unique:App\Product,common_name,'.$id,
+                'scientific_name' => 'required|unique:App\Product,scientific_name,'.$id,
+                'cost' => 'required|Integer|min:0',
+                'stock' => 'required|Integer|min:0',
+                'use' => 'required',
+                'image' => 'required'
         ];
     }
 }

@@ -11,9 +11,28 @@ class Product extends Model
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'common_name', 'scientific_name', 'cost', 'stock', 'image', 'category_id'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'category_id' => 'integer',
+        'cost' => 'integer',
+        'stock' => 'integer',
+    ];
     
-        
     /**
      * Obtener la categoría a la que pertenecen el producto.
      */
