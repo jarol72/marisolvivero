@@ -3,6 +3,11 @@
 @section('title', 'Catálogo de productos')
 
 @section('content')
+@if(Cart::count())
+
+<a class="viewcart text-decoration-none text-white" href="{{ route('cart.index') }}" class="text-white  text-decoration-none">@lang('View Cart')<br/><small>{{ Cart::content()->count() }} @lang('item(s)')</small></a>
+
+@endif   
 <div class="container">
    <!-- BOTONES PARA FILTROS POR CATEGORÍA -->
    <div class="row d-flex mt-2 mb-4 justify-content-center">
@@ -13,6 +18,9 @@
       Sin datos
       @endforelse
    </div> <!-- FIN BOTONES PARA FILTROS POR CATEGORÍA -->
+
+
+
 
    @include('partials._session-status')
             
@@ -31,13 +39,15 @@
                <p class="my-0"><small class="card-text"><b>Vlr. unitario: </b>{{number_format($product->cost,0,',','.')}}</small></p>
                <p class="my-0"><small class="card-text"><b>Disponible: </b>{{$product->stock}}</small></p>
                <p class="my-0"><small class="card-text"><b>Categoría: <a href="{{route('category_filter', $category->id)}}" class="">{{$product->category->category}}</a></b></small></p>
-               <form action="" class="my-2">
-                  <p class="my-0"><small class="card-text"><b>Cantidad a comprar: </b></small></p>
-                  <div class="form-group align-items-baseline d-flex m-0">
-                     <input class="form-control form-control-sm w-50 mr-2" type="number" placeholder="">
-                     <button type="submit" class="btn bg-btn-lightgreen text-white btn-sm my-2">Agregar</button>
-                  </div>
-               </form>
+            <form method="POST" action="{{ route('cart.add', $product->id) }}" class="my-2">
+               @csrf @method('PATCH')
+               <input type="hidden" name="id" value="{{ $product->id }}">
+               <p class="my-0"><small class="card-text"><b>Cantidad a comprar: </b></small></p>
+               <div class="form-group align-items-baseline d-flex m-0">
+                  <input class="form-control form-control-sm w-50 mr-2" name="quantity" type="number" placeholder="">
+                  <input type="submit" class="btn bg-btn-lightgreen text-white btn-sm my-2" value="Agregar">
+               </div>
+            </form>
                
             </div>
          </div>
@@ -56,4 +66,6 @@
       {{$products->links()}}
 
    </div>
+
+   
    @endsection

@@ -2,9 +2,10 @@
 
 namespace App;
 
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Product extends Model implements Buyable
 {
     /**
      * The attributes that are mass assignable.
@@ -50,5 +51,18 @@ class Product extends Model
                     ->using('App\OrderDetail')
                     ->withPivot(['quantity', 'created_at', 'updated_at'])
                     ->withTimestamps();
+    }
+
+    // Para uso con el carro de compras
+    public function getBuyableIdentifier($options = null) {
+        return $this->id;
+    }
+
+    public function getBuyableDescription($options = null) {
+        return $this->common_name;
+    }
+
+    public function getBuyablePrice($options = null) {
+        return $this->cost;
     }
 }

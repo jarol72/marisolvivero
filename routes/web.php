@@ -62,6 +62,9 @@ Route::view('help', 'help')->name('help');
 
 Auth::routes();
 
-// Ruta para el buscado en tiempo real
-Route::get('clients/search', 'ClientController@search');
-
+// Ruta para el carro de compras
+Route::post('cart/store', 'CartController@store')->name('cart.store');
+Route::get('cart', 'CartController@index')->name('cart.index');
+Route::patch('cart/add/{id}', 'CartController@add')->name('cart.add');
+Route::get('cart/edit/{id}', 'CartController@itemEdit')->name('cart.edit');
+Route::delete('cart/remove/{id}', 'CartController@remove')->name('cart.remove');
