@@ -6,9 +6,9 @@
         <div class="col-md-10">
 
             <a href="{{ route('catalog') }}" class="btn bg-btn-lightgreen text-white">@lang('Add Products')</a>
-            @if(!session()->has('orderSent'))
-                <button type="button" class="btn bg-btn-lightgreen text-white float-right " data-toggle="collapse" data-target="#deliveryData">@lang('Send Order')
-                </button>
+            @if(!session()->has('orderSent') && !Cart::content()->count() == 0)
+            <button type="button" class="btn bg-btn-lightgreen text-white float-right " data-toggle="collapse" data-target="#deliveryData">@lang('Send Order')
+            </button>
             @endif
 
             <!-- Datos de envío -->
@@ -20,7 +20,7 @@
                         <p class="text-secondary mx-0">
                             Por favor escriba su número de identificación
                         </p>
-                        @csrf 
+                        @csrf
                         <div class="form-inline pl-0 mb-0">
                             <label for="nit" class="">@lang('NIT / CC')</label>
                             <input type="text" name="nit" class="form-control mx-2" id="nit" value="{{ old('nit') }}">
@@ -33,66 +33,66 @@
                 </div>
             </div><!-- Datos de envío -->
 
-    <!-- Carro de compras -->
-    <div class="card mt-2">
-        <div class="card-header h4 bg-darkgreen text-white font-weight-bold">@lang('Cart')</div>
+            <!-- Carro de compras -->
+            <div class="card mt-2">
+                <div class="card-header h4 bg-darkgreen text-white font-weight-bold">@lang('Cart')</div>
 
-        <div class="card-body">
-            @include('partials._session-orderSent')
-            @if (count(Cart::content()))
-            <div class="content mt-1">
-                <div id="divTable" class="table-responsive">
-                    @include('partials._session-status')
-                    <table id="infTable" class="display table table-hover table-striped responsive nowrap">
-                        <thead>
-                            <tr class="bg-btn-lightgreen text-white">
-                                <th>@lang('Name')</th>
-                                <th class="text-center">@lang('Quantity')</th>
-                                <th class="text-right">@lang('Cost')</th>
-                                <th class="text-right">@lang('Total')</th>
-                                <th class="text-center">@lang('Actions')</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse (Cart::content() as $item)
-                            <tr class="align-items-center">
-                                <td class="align-middle">{{ $item->name }}</td>
-                                <td class="text-center align-middle">{{ $item->qty }}</td>
-                                <td class="align-middle text-right">$ {{ number_format($item->price,0,',','.') }}</td>
-                                <td class="align-middle text-right">$ {{ number_format($item->total,0,',','.') }}</td>
-                                <td class="align-middle text-center">
-                                    @if(!session()->has('orderSent'))
-                                    <form action="{{ route('cart.remove', $item->rowId) }}" method="POST">
-                                        <button type="button" class="btn btn-sm btn-blue m-1 text-white" data-toggle="modal" data-target="#itemEdit"><i class="fas fa-pencil-alt"></i></button>
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnDelete" value="{{ $item->rowId}}"><i class="far fa-trash-alt"></i></button>
-                                    </form>
-                                    @endif
-                                </td>
-                            </tr>
-                            @empty
-                            <p>No hay empleados para mostrar</p>
-                            @endforelse
-                        <tfoot>
-                            <tr class="bg-btn-lightgreen text-white text-center">
-                                <th colspan="3" class="text-right font-weight-bold">Valor Total</th>
-                                <th class="text-right font-weight-bold">$ {{ Cart::total() }}</th>
-                                <th class="text-right font-weight-bold"></th>
-                            </tr>
-                        </tfoot>
-                        </tbody>
-                    </table>
+                <div class="card-body">
+                    @include('partials._session-orderSent')
+                    @if (count(Cart::content()))
+                    <div class="content mt-1">
+                        <div id="divTable" class="table-responsive">
+                            @include('partials._session-status')
+                            <table id="infTable" class="display table table-hover table-striped responsive nowrap">
+                                <thead>
+                                    <tr class="bg-btn-lightgreen text-white">
+                                        <th>@lang('Name')</th>
+                                        <th class="text-center">@lang('Quantity')</th>
+                                        <th class="text-right">@lang('Cost')</th>
+                                        <th class="text-right">@lang('Total')</th>
+                                        <th class="text-center">@lang('Actions')</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse (Cart::content() as $item)
+                                    <tr class="align-items-center">
+                                        <td class="align-middle">{{ $item->name }}</td>
+                                        <td class="text-center align-middle">{{ $item->qty }}</td>
+                                        <td class="align-middle text-right">$ {{ number_format($item->price,0,',','.') }}</td>
+                                        <td class="align-middle text-right">$ {{ number_format($item->total,0,',','.') }}</td>
+                                        <td class="align-middle text-center">
+                                            @if(!session()->has('orderSent'))
+                                            <form action="{{ route('cart.remove', $item->rowId) }}" method="POST">
+                                                <button type="button" class="btn btn-sm btn-blue m-1 text-white" data-toggle="modal" data-target="#itemEdit"><i class="fas fa-pencil-alt"></i></button>
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnDelete" value="{{ $item->rowId}}"><i class="far fa-trash-alt"></i></button>
+                                            </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <p>No hay empleados para mostrar</p>
+                                    @endforelse
+                                <tfoot>
+                                    <tr class="bg-btn-lightgreen text-white text-center">
+                                        <th colspan="3" class="text-right font-weight-bold">Valor Total</th>
+                                        <th class="text-right font-weight-bold">$ {{ Cart::total() }}</th>
+                                        <th class="text-right font-weight-bold"></th>
+                                    </tr>
+                                </tfoot>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @else
+                    <div class="alert alert-info text-center m-0" role="alert">
+                        @lang('Your cart is <b>empty</b>')
+                    </div>
+                    @endif
                 </div>
             </div>
-            @else
-            <div class="alert alert-info text-center m-0" role="alert">
-                @lang('Your cart is <b>empty</b>')
-            </div>
-            @endif
         </div>
     </div>
-</div>
-</div>
 </div><!-- Fin carro de compras -->
 
 

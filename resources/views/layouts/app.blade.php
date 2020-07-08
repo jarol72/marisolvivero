@@ -33,6 +33,7 @@
 
       <main class="py-2 container-md content">
          @yield('content')
+         @include('partials._viewCart') 
       </main>
 
       @include('partials.footer')

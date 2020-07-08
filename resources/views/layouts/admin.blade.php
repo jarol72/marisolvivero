@@ -204,9 +204,11 @@
                                 <?php
                                             use App\User;
                                             use App\Product;
+                                            use App\Cart;
                                             $clients_count = User::where('role_id', 3)->count();
                                             $employees_count = User::where('role_id', 2)->count();
                                             $products_count = Product::all()->count();
+                                            $orders_count = Cart::all()->count();
                                             ?>
                                         <span class="right badge bg-btn-lightgreen text-white">{{ $clients_count ?? '0' }}</span>
                                     </p>
@@ -234,9 +236,21 @@
                                     
                                     <span class="right badge bg-btn-lightgreen text-white">{{ $products_count ?? '0' }}</span>
                                 </p>
-                            </a>
-                        </li>
-                        
+                                </a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a href="{{route('orders.index')}}"
+                                class="nav-link {{ setSelected('orders.index') }}">
+                                <i class="nav-icon fas fa-cart-arrow-down"></i>
+                                <p>
+                                    @lang('Orders')
+                                    
+                                    <span class="right badge bg-btn-lightgreen text-white">{{ $orders_count ?? '0' }}</span>
+                                </p>
+                                </a>
+                            </li>
+                            
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-sticky-note"></i>

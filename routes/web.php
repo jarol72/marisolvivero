@@ -40,8 +40,11 @@ Route::middleware('admin')->prefix('admin')->group(function(){
     Route::resource('products', 'ProductController');
     Route::get('products/category/{id}', 'CategoryController@filter')->name('adm_category_filter');
     
-    // Rutas de facturas
-    Route::resource('invoices', 'InvoiceController');
+    // Rutas de pedidos
+    Route::get('orders/xls', 'OrderController@xls')->name('orders.xls');
+    Route::get('orders/pdf', 'OrderController@pdf')->name('orders.pdf');
+    Route::get('orders/{rowId}/{order}', 'OrderController@editItem')->name('orders.editItem');
+    Route::resource('orders', 'OrderController');
     
 });
 
@@ -66,5 +69,5 @@ Auth::routes();
 Route::post('cart/store', 'CartController@store')->name('cart.store');
 Route::get('cart', 'CartController@index')->name('cart.index');
 Route::patch('cart/add/{id}', 'CartController@add')->name('cart.add');
-Route::get('cart/edit/{id}', 'CartController@itemEdit')->name('cart.edit');
+Route::get('cart/edit/{id}/', 'CartController@itemEdit')->name('cart.edit');
 Route::delete('cart/remove/{id}', 'CartController@remove')->name('cart.remove');

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $table = 'shoppingcart';
+    protected $primaryKey = 'identifier';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    
     //
     protected $attributes = [
         'status' => 'Pendiente de pago',

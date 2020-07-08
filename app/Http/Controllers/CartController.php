@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Product;
 
+
 class CartController extends Controller
 {
     /**
@@ -43,7 +44,7 @@ class CartController extends Controller
         return redirect()->route('catalog');
     }
 
-    public function itemEdit(Request $request, $rowId)
+        public function itemEdit(Request $request, $rowId)
     {
         $quantity = $request['quantity'];
         
@@ -64,9 +65,11 @@ class CartController extends Controller
         $nit = $request['nit'];
         
         Cart::store($nit);
-
+        
         Cart::destroy();
-
+        
         return redirect()->route('cart.index')->with('orderSent', 'Su pedido ha sido enviado correctamente');
     }
+
+    
 }
