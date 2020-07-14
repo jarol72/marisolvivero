@@ -14,6 +14,11 @@
                         @csrf
                         <input type="hidden" name="role_id" class="form-control w-100" id="id" value="2">
                         <div class="form-group">
+                            <label for="nit">@lang('ID')</label>
+                            <input type="text" name="nit"  class="form-control @error('nit') is-invalid @enderror" value="{{ old('nit') }}">
+                            @error('nit')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                        </div>
+                        <div class="form-group">
                             <label for="name">@lang('Name')</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{old('name') }}">
                             @error('name')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror

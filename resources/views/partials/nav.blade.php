@@ -6,19 +6,19 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
          <ul class="navbar-nav mr-auto mt-lg-0 bg-menu">
             <li class="nav-item  {{ setActive('home') }}">
-               <a class="nav-link text-white px-1" href="{{route('home')}}">@lang('Home')</a>
+               <a class="nav-link text-white px-3" href="{{route('home')}}">@lang('Home')</a>
             </li>
             <li class="nav-item {{ setActive('catalog') }} {{ setActive('category_filter') }}">
-               <a class="nav-link text-white px-1" href="{{route('catalog')}}">@lang('Catalog')</a>
+               <a class="nav-link text-white px-3" href="{{route('catalog')}}">@lang('Catalog')</a>
             </li>
             <li class="nav-item {{ setActive('who') }}">
-               <a class="nav-link text-white px-1" href="{{route('who')}}">@lang('About us')</a>
+               <a class="nav-link text-white px-3" href="{{route('who')}}">@lang('About us')</a>
             </li>
             <li class="nav-item {{ setActive('contact') }}">
-               <a class="nav-link text-white px-1e" href="{{route('contact')}}">@lang('Contact')</a>
+               <a class="nav-link text-white px-3" href="{{route('contact')}}">@lang('Contact')</a>
             </li>
             <li class="nav-item {{ setActive('help') }}">
-               <a class="nav-link text-white px-1" href="{{route('help')}}">@lang('Help')</a>
+               <a class="nav-link text-white px-3" href="{{route('help')}}">@lang('Help')</a>
             </li>
             
          </ul>
@@ -41,7 +41,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    @if(Auth::user()->role_id == 1)
+                                       <a class="dropdown-item" href="{{ route('admin.index') }}">
+                                          {{ __('Admin Area') }}
+                                       </a>
+                                    @endif
+                                       <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

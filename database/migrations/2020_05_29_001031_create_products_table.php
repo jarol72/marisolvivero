@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->constrained();
             $table->string('common_name');
             $table->string('scientific_name')->unique();
             $table->bigInteger('cost');
@@ -26,7 +26,6 @@ class CreateProductsTable extends Migration
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

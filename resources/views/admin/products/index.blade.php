@@ -20,10 +20,10 @@
 
       <div class="d-flex mt-3 mb-2 btn-group-justified p-0">   
          <!-- Exportar a XLS -->
-         <a href="{{ route('products.xls') }}" class="float-right mr-3"><button type="button" class="btn btn-sm float-right p-0" style="color: #217346"><i class="far fa-file-excel fa-2x"></i></button></a>
+         <a href="{{ route('products.xls') }}" class="float-right mr-3"><button type="button" class="btn btn-sm float-right p-0" style="color: #217346" data-toggle="tooltip" data-placement="bottom" title="Exportar a Excel"><i class="far fa-file-excel fa-2x"></i></button></a>
          
          <!-- Exportar a PDF -->
-         <a href="{{ route('products.pdf') }}" class="float-right mr-3"><button type="button" class="btn btn-sm text-danger  float-right p-0"><i class="far fa-file-pdf fa-2x"></i></button></a>
+         <a href="{{ route('products.pdf') }}" class="float-right mr-3"><button type="button" class="btn btn-sm text-danger  float-right p-0" data-toggle="tooltip" data-placement="bottom" title="Exportar a PDF"><i class="far fa-file-pdf fa-2x"></i></button></a>
          
          <!-- Botón nuevo usuario -->
          <a href="{{ route('products.create') }}" class="float-right"><button type="button" class="btn btn-sm bg-btn-lightgreen text-white float-right"><i class="fas fa-user-plus"></i> @lang('New product')</button></a>
@@ -57,11 +57,11 @@
                   <td class="align-middle py-0 text-center">{{ $product->stock }}</td>
                   <td class="align-middle text-center py-0">
                      <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                        <a type="button" href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnView" id="btnView" value="{{ $product->id}}"><i class="far fa-eye"></i></a>
-                        <a type="button" href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-blue m-1 text-white" name="btnEdit" id="btnEdit" value="{{ $product->id}}"><i class="fas fa-pencil-alt"></i></a>
-                        <a type="button" href="{{ route('products.inout', $product->id) }}" class="btn btn-sm btn-warning m-1" name="btnTransaction" id="btnTransaction" value="{{ $product->id}}"><i class="fas fa-exchange-alt"></i></a>
+                        <a type="button" href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnView" id="btnView" value="{{ $product->id}}" data-toggle="tooltip" data-placement="bottom" title="Ver"><i class="far fa-eye"></i></a>
+                        <a type="button" href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-blue m-1 text-white" name="btnEdit" id="btnEdit" value="{{ $product->id}}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                        <a type="button" href="{{ route('products.inout', $product->id) }}" class="btn btn-sm btn-warning m-1" name="btnTransaction" id="btnTransaction" value="{{ $product->id}}" data-toggle="tooltip" data-placement="bottom" title="Entrada / Salida"><i class="fas fa-exchange-alt"></i></a>
                         @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnDelete" value="{{ $product->id}}"><i class="far fa-trash-alt"></i></button>
+                        <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnDelete" value="{{ $product->id}}" data-toggle="tooltip" data-placement="bottom" title="Borrar"><i class="far fa-trash-alt"></i></button>
                      </form>
 
                   </td>

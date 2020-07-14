@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
+        'nit' => $faker->numberBetween(10000000, 9999999999),
         'name' => $faker->name,
         'role_id' => Role::inRandomOrder()->value('id') ?: factory(Role::class),
         'email' => $faker->unique()->safeEmail,

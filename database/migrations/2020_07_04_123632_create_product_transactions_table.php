@@ -15,10 +15,10 @@ class CreateProductTransactionsTable extends Migration
     {
         Schema::create('product_transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id');
+            $table->foreignId('product_id')->constrained();
             $table->string('type');
             $table->bigInteger('quantity');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->dateTime('created_at');
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';

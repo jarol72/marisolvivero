@@ -15,9 +15,13 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->dateTime('date', 0);
-            $table->enum('status', ['Pendiente de pago', 'Por despachar', 'Despachado', 'Cancelado'])->default('Pendiente de pago');
+            $table->foreignId('user_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('set null');
+            $table->dateTime('date', 0)->default(now());
+            $table->integer('total')->unsigned();
+            $table->enum('status', ['Por entregar', 'Entregado'])->default('Por entregar');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';

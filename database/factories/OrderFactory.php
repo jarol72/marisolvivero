@@ -10,6 +10,6 @@ $factory->define(Order::class, function (Faker $faker) {
     return [
         'user_id' => User::inRandomOrder()->value('id') ?: factory(User::class),
         'date' => $faker->dateTime('now'),
-        'status' => $faker->randomElement(['Pendiente de pago','Por despachar','Despachado','Cancelado']),
+        'status' => $faker->randomElement(['Por entregar','Entregado']),
     ];
 });

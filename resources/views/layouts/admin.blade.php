@@ -10,7 +10,8 @@
 
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
-    
+    <script src=""></script>
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     
@@ -53,7 +54,8 @@
                 
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
-                    <!-- Messages Dropdown Menu -->
+                    <?= date('d - M - Y') ?>
+                    {{-- <!-- Messages Dropdown Menu -->
                     <li class="nav-item dropdown mx-1">
                         <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-comments mr-3"></i>
@@ -143,7 +145,7 @@
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                         </div>
-                    </li>
+                    </li> --}}
                 </ul>
             </nav>
             <!-- /.navbar -->
@@ -204,9 +206,12 @@
                                 <?php
                                             use App\User;
                                             use App\Product;
+                                            use App\Cart;
+                                            use App\Order;
                                             $clients_count = User::where('role_id', 3)->count();
                                             $employees_count = User::where('role_id', 2)->count();
                                             $products_count = Product::all()->count();
+                                            $orders_count = Order::where('status', '!=', 'Entregado')->count();
                                             ?>
                                         <span class="right badge bg-btn-lightgreen text-white">{{ $clients_count ?? '0' }}</span>
                                     </p>
@@ -234,39 +239,22 @@
                                     
                                     <span class="right badge bg-btn-lightgreen text-white">{{ $products_count ?? '0' }}</span>
                                 </p>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-sticky-note"></i>
-                                <p>Notas<i class="fas fa-angle-left right"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="notas/todas"
-                                    class="{{ Request::path() === 'notas/todas' ? 'nav-link active' : 'nav-link' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Todas</p>
                                 </a>
                             </li>
+                            
                             <li class="nav-item">
-                                <a href="notas/favoritas"
-                                class="{{ Request::path() === 'notas/favoritas' ? 'nav-link active' : 'nav-link' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Favoritas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="notas/archivadas"
-                            class="{{ Request::path() === 'notas/archivadas' ? 'nav-link active' : 'nav-link' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Archivadas</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            
+                                <a href="{{route('orders.index')}}"
+                                class="nav-link {{ setSelected('orders.index') }}">
+                                <i class="nav-icon fas fa-cart-arrow-down"></i>
+                                <p>
+                                    @lang('Orders')
+                                    
+                                    <span class="right badge bg-btn-lightgreen text-white">{{ $orders_count ?? '0' }}</span>
+                                </p>
+                                </a>
+                            </li>
+                            
+                                    
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
@@ -306,12 +294,14 @@
 </div>
 </div>
 <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script> --}}
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}" defer></script>
 <script src="{{ asset('js/dataTables.buttons.min.js') }}" defer></script>
 @stack('dt')
+@stack('search')
 
 </body>
 

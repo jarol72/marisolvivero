@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use App\Exports\ProductsExport;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -34,8 +37,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->file('image')->store('public/productimg');
-        
         $this->validate($request,[
             
             'category_id' => 'required',
@@ -44,14 +45,31 @@ class ProductController extends Controller
             'cost' => 'required|Integer|min:0',
             'stock' => 'required|Integer|min:0',
             'use' => 'required',
-            'image' => 'required'
+            'image' => 'string'
             ]);
+        
+            $product = new Product;
+            $product->category_id = $request->input('category_id');
+            $product->common_name = $request->input('common_name');
+            $product->scientific_name = $request->input('scientific_name');
+            $product->cost = $request->input('cost');
+            $product->stock = $request->input('stock');
+            $product->use = $request->input('use');
             
-        $product = new Product();
+            $image = $request->file('image');
+            if($image){
+                // Poner nombre único a la imagen
+                $image_name = time().$image->getClientOriginalName();
+    
+                // Guardar imagen en carpeta (storage/app/productsimg)
+                Storage::disk('productsimg')->put($image_name, File::get($image));
+    
+                $product->image = $image_name;
+            }
+            
+            $product->save();        
         
-        $product->create($request->all());
-        
-        return redirect()->route('products.create')->with('status', 'El producto fue creado correctamente.');
+        return redirect()->route('products.index')->with('status', 'El producto fue creado correctamente.');
         
     }
 
@@ -76,6 +94,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $this->validate($request,[
             'id' => 'required',
             'category_id' => 'required',
@@ -84,14 +103,33 @@ class ProductController extends Controller
             'cost' => 'required|Integer|min:0',
             'stock' => 'required|Integer|min:0',
             'use' => 'required',
-            'image' => 'required'
+            'image' => ''
         ]);
  
         $product = Product::findOrFail($id);
+        $product->category_id = $request->input('category_id');
+        $product->common_name = $request->input('common_name');
+        $product->scientific_name = $request->input('scientific_name');
+        $product->cost = $request->input('cost');
+        $product->stock = $request->input('stock');
+        $product->use = $request->input('use');
         
-        $product->image = $request->file('image')->store('productsimg');
+        $image = $request->file('image');
+        if($image){
+            // Poner nombre único a la imagen
+            $image_name = time().$image->getClientOriginalName();
+
+            // Guardar imagen en carpeta (storage/app/productsimg)
+            Storage::disk('productsimg')->put($image_name, File::get($image));
+
+            $product->image = $image_name;
+        }
         
-        $product->update($request->except('image'));
+        $product->update();
+        
+        /* $product->image = $request->file('image')->store('productsimg');
+        
+        $product->update($request->except('image')); */
 
         return redirect()->route('products.edit', $id)->with('status', 'El producto fue actualizado correctamente.');
     }
@@ -102,6 +140,11 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('status', 'El producto fue eliminado correctamente.');
 
+    }
+
+    public function getImage($filename){
+        $file = Storage::disk('productsimg')->get($filename);
+        return new Response($file, 200);
     }
 
     public function catalog()
@@ -176,5 +219,9 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('products.show', $id)->with('status', 'Se han ' . $operation . ' ' . $quantity . ' unidades al producto ' . $product->common_name);
+    }
+
+    public function orders(){
+        return $this->belongsToMany('\App\Order', 'order_product', 'product_id', 'order_id')->withPivot('quantity')->withTimestamps();
     }
 }

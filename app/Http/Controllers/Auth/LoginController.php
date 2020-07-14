@@ -39,13 +39,33 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function authenticated(Request $request, $user)
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm()
     {
+        session()->put('previousUrl', url()->previous());
+        
+        return view('auth.login');
+    }
+
+    public function redirecTo(Request $request, $user){
+       
         $role = $user->role_id;
         if($role == 1 || $role == 2){
             return redirect()->route('admin.index');
         } else {
-            return redirect()->route('home');
+           return str_replace(url('/'), '', session()->get('previousUrl', '/'));
+        }
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+          $role = $user->role_id;
+        if($role == 1 || $role == 2){
+            return redirect()->route('admin.index');
         }
         
     }

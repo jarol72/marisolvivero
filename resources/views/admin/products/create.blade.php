@@ -11,12 +11,23 @@
                </div>
                <div class="card-body">
                   @include('partials._session-status')
+                  
+                  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+                  
                   <form method="POST" action="{{ route('products.store') }}" class="mb-0" enctype="multipart/form-data">
                      @csrf
                      <div class="form-group col col-6 pl-0 mb-0">
                         <label for="category" class="col-form-label">@lang('Category')</label>
                         
-                        <select name="category_id @error('category_id') is-invalid @enderror" class="custom-select" id="category_id">
+                        <select name="category_id" @error('category_id') is-invalid @enderror" class="custom-select" id="category_id">
                            <option selected>@lang('Select')...</option>
                            @foreach($categories as $category)
                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->category }}</option>
@@ -69,7 +80,7 @@
                      
                      <div class="form-inline mt-2">
                         <div class="col col-6 text-center">
-                           <img src="{{ asset('productsimg/default_product.png') }}" class="img-responsive img-rounded" height="113.03" alt="">
+                           <img src="{{ route('products.image', 'default_product.png') }}" class="img-responsive img-rounded" height="113.03" alt="">
                         </div>
                                  <div class="form-group col-6 px-0 px-0">
                                     <div class="d-flex flex-column justify-content-around mt-3 w-100">

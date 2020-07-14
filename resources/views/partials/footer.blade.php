@@ -1,4 +1,4 @@
-<footer class="main__footer text-white px-1 py-2">
+<footer class="main__footer text-white px-1 py-2 mt-4">
    <div class="container d-flex clearfix">
       <div class="row">
          <div class="col-sm-12 col-md-3 my-2">
