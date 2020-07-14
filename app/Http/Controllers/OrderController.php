@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Product;
+use App\OrderProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Exports\OrdersExport;
+use Illuminate\Support\Facades\DB;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -18,7 +20,8 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){    
-        $orders = Order::orderBy('created_at', 'desc')->get();
+        
+        $orders = Order::orderBy('created_at', 'asc')->get();
         
         return view('admin.orders.index', compact('orders'));
     }
@@ -29,7 +32,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        //
+        return view('admin.orders.create');
     }
 
     /**
@@ -51,16 +54,34 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        /* $order_product = OrderProduct::where('order_id', $order->id)->first(); */ 
+        $order = Order::findOrFail($order->id);
         return view('admin.orders.show', compact('order'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the quantity of the specified cart item.
      *
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function editItem(Request $request, Order $order, $rowId)
+    public function edit(Order $order)
+    {
+       $order = Order::findOrFail($order->id);
+       $order->status = request('status');
+
+       $order->save();
+
+       return redirect()->route('orders.index')->with('status', 'El pedido se marcó como entregado.');
+    }
+
+    /**
+     * Show the form for editing the quantity of the specified cart item.
+     *
+     * @param  \App\Order  $order
+     * @return \Illuminate\Http\Response
+     */
+    /* public function editItem(Request $request, Order $order, $rowId)
     {
         return $request->all();
         $quantity = $request['quantity'];
@@ -69,7 +90,7 @@ class OrderController extends Controller
         Cart::update($rowId, $quantity);
 
         return view('admin.orders.show', compact('orderId'));
-    }
+    } */
 
     /**
      * Update the specified resource in storage.
@@ -78,9 +99,10 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Order $order)
     {
-        //
+       
+
     }
 
     /**
@@ -115,7 +137,47 @@ class OrderController extends Controller
         $pdf = PDF::loadView('admin.orders.pdf', compact('orders'));
 
         $pdf->setPaper('letter', 'portrait');
-/* return view('admin.orders.pdf', compact('orders')); */
+
         return $pdf->stream('listado.pdf');
     }
+
+
+
+    public function search(Request $request)
+    {
+    if($request->ajax())
+    {
+    $output="";
+    $products=DB::table('products')->where([
+                                            ['common_name','LIKE','%'.$request->search."%"],
+                                            /* ['scientific_name','LIKE','%'.$request->search."%"] */
+                                        ])
+                                        ->get();
+    if($products)
+    {
+    foreach ($products as $key => $product) {
+    $output.='<tr>'.
+    '<td>'.$product->id.'</td>'.
+    '<td>'.$product->common_name.'</td>'.
+    '<td>'.$product->scientific_name.'</td>'.
+    '<td>'.$product->cost.'</td>'.
+    '<td>'.$product->stock.'</td>'.
+    '<td>'.
+            '<form method="GET" action="/cart/'.$product->id.'/edit/" class="my-2">
+                
+                <input type="text" name="id" value="'.$product->id.'">
+                <div class="form-group align-items-baseline d-flex m-0">
+                    <input class="form-control form-control-sm w-25 mr-2" name="quantity" type="number"  max="{{ $product->stock }}" min="0" placeholder="">
+                    <input type="submit" class="btn bg-btn-lightgreen text-white btn-sm my-2" value="Agregar">
+                </div>
+            </form>'
+    .'</td>'.
+    '</tr>';
+    }
+    return Response($output);
+       }
+       }
+    }
+
+
 }

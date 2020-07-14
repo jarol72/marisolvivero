@@ -22,32 +22,56 @@
          <small class="mb-0"><?= date('Y-m-d') ?></small>
       </div>
    </div>
-
+   
    <main>
+      @forelse ($orders as $order)
+      <hr style="border-color: black">
       <table id="infTable" class="display table-sm table table-hover table-striped responsive nowrap">
-         <thead>
-            <tr class="bg-btn-lightgreen">
-               <!-- th>Id</th -->
-               <th class="align-middle py-2">@lang('ID')</th>
-               <th class="align-middle text-center py-2">@lang('Order Date')</th>
-               <th class="align-middle py-2">@lang('Elapsed Time')</th>
-               <th class="align-middle text-center py-2">@lang('Delivered')</th>
-            </tr>
-         </thead>
-         <tbody>
-            @forelse ($orders as $order)
-            <tr class="align-items-center">
-                <td class="align-middle py-0">{{ $order->identifier }}</td>
-                <td class="align-middle text center py-0">{{ $order->created_at }}</td>
-                <td class="align-middle py-0">{{ $order->created_at->diffForHumans() }}</td>
-                <td class="align-middle text-center py-0">
-                    <input type="checkbox" class="mr-0" name="" id="">_______________
-            </tr>
-            @empty
+            <thead>
+               {{-- Encabezados del pedido --}}
+               <tr class="bg-btn-lightgreen">
+                  <th class="align-middle py-2">@lang('ID')</th>
+                  <th class="align-middle text-center py-2">@lang('Order Date')</th>
+                  <th class="align-middle py-2">@lang('Elapsed Time')</th>
+                  <th class="align-middle text-center py-2">@lang('Delivered')</th>
+               </tr> {{-- Fin encabezados del pedido --}}
+            </thead>
+            <tbody>
+               {{-- Datos del pedido --}}
+               <tr class="align-items-center">
+                  <td class="align-middle py-0">{{ $order->user_id }}</td>
+                  <td class="align-middle text-center py-0">{{ $order->created_at }}</td>
+                  <td class="align-middle py-0">{{ $order->created_at->diffForHumans() }}</td>
+                  <td class="align-middle text-center py-0">
+                  <input type="checkbox" class="mr-0" name="" id="">_______________
+               </tr>{{-- Fin datos del pedido --}}
+               {{-- Encabezados de la sección de detalles del pedido --}}
+               <tr class="bg-btn-lightgreen">
+                  <td class="align-middle py-2 font-weight-bold"><small><i>@lang('Common Name')</i></small></td>
+                  <td class="align-middle text-center py-2 font-weight-bold"><small><i>@lang('Quantity')</i></small></td>
+                  <td class="align-middle text-right py-2 font-weight-bold"><small><i>@lang('Cost')</i></small></td>
+                  <td class="align-middle text-right py-2 font-weight-bold"><small><i>@lang('Total Producto')</i></small></td>
+               </tr> {{-- Fin de los ncabezados de la sección de detalles del pedido --}}
+               
+               {{-- Detalles del pedido --}}
+               @foreach($order->products as $product) {{-- @php dd($product->pivot); @endphp --}}
+                  <tr class="align-order_products-center">
+                        <td class="align-middle"><small><i>{{ $product->common_name}}</i></small></td>
+                        <td class="align-middle text-center"><small><i>{{ number_format($product->pivot->quantity,0,',','.') }}</i></small></td>
+                        <td class="align-middle text-right "><small><i>$ {{ $product->cost }}</i></small></td>
+                        <td class="align-middle text-right"><small><i>$ {{ number_format($product->pivot->quantity * $product->cost,0,',','.') }}</i></small></td>
+                        
+                  </tr>
+               @endforeach
+               {{-- Fin detalles del pedido --}}
+               <tr>
+                  <td colspan="4"  class="text-right font-weight-bold">Total Pedido $ {{ number_format($order->total,0,',','.') }}</td>
+               </tr>      
+            </tbody>
+         </table>
+         @empty
             <p>No hay empleados para mostrar</p>
-            @endforelse
-         </tbody>
-      </table>
+         @endforelse
    </main>
    <script type="text/php">
       if (isset($pdf)) {

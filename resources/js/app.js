@@ -13,4 +13,12 @@ $('.custom-file-input').on('change', function(event) {
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
-  })
+});
+
+function editQty(product_id)
+{
+  var quantity = document.getElementById("product"+product_id).value;
+  
+  document.getElementById("newQty").value=quantity;        
+    
+}

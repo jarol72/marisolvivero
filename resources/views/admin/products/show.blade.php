@@ -20,7 +20,9 @@
       <p class="">@lang('Stock'): {{$product->stock}}</p>
     </div>
     <div class="col col-6 text-right p-0">
-      <img src="/{{ $product->image}}" class="img-responsive img-rounded border border-gray shadow img-thumbnail" alt="">
+      
+        <img src="{{ route('products.image', $product->image) }}" class="img-responsive img-rounded border border-gray shadow img-thumbnail" alt="">
+      
     </div>
   </div>
 </div>

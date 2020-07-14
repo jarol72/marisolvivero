@@ -52,6 +52,7 @@ class ClientController extends Controller
         
         $this->validate($request,[
             'role_id' => 'required',
+            'nit' => 'required',
             'name' => 'required',
             'email' => 'required|email|unique:App\User,email',
             'password' => 'required'

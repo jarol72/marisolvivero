@@ -33,6 +33,7 @@ Route::middleware('admin')->prefix('admin')->group(function(){
     Route::resource('clients', 'ClientController');
     
     // Rutas de productos
+    Route::get('products/image/{fielname}', 'ProductController@getImage')->name('products.image');
     Route::get('products/inout/{id}', 'ProductController@inout')->name('products.inout');
     Route::get('products/transaction/{id}', 'ProductController@transaction')->name('products.transaction');
     Route::get('products/xls', 'ProductController@xls')->name('products.xls');
@@ -43,16 +44,19 @@ Route::middleware('admin')->prefix('admin')->group(function(){
     // Rutas de pedidos
     Route::get('orders/xls', 'OrderController@xls')->name('orders.xls');
     Route::get('orders/pdf', 'OrderController@pdf')->name('orders.pdf');
-    Route::get('orders/{rowId}/{order}', 'OrderController@editItem')->name('orders.editItem');
+    Route::get('orders/create/search', 'OrderController@search')->name('orders.search');
+    /* Route::patch('orders/{rowId}/{order}', 'OrderController@edit')->name('orders.edit'); */
     Route::resource('orders', 'OrderController');
     
 });
 
+Route::get('image/{filename}', 'HomeController@getImage')->name('home-products.image');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 
 // Rutas del catálogo
 Route::get('catalog', 'ProductController@catalog')->name('catalog');
+Route::get('catalog/image/{fielname}', 'ProductController@getImage')->name('catalog.image');
 Route::get('catalog/category/{id}', 'CategoryController@filter')->name('category_filter');
 
 // Rutas de contacto
@@ -69,5 +73,6 @@ Auth::routes();
 Route::post('cart/store', 'CartController@store')->name('cart.store');
 Route::get('cart', 'CartController@index')->name('cart.index');
 Route::patch('cart/add/{id}', 'CartController@add')->name('cart.add');
-Route::get('cart/edit/{id}/', 'CartController@itemEdit')->name('cart.edit');
-Route::delete('cart/remove/{id}', 'CartController@remove')->name('cart.remove');
+Route::get('cart/add/{id}', 'CartController@add')->name('cart.add');
+Route::get('cart/{id}/edit/', 'CartController@itemEdit')->name('cart.edit');
+Route::delete('cart/edit/{id}/', 'CartController@remove')->name('cart.remove');

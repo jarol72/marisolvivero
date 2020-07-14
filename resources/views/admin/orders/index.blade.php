@@ -6,14 +6,14 @@
     <div class="d-flex justify-content-end mb-1 ml-0">
         {{-- @include('partials._searchForm') --}}
         <div>
-            <!-- Botón nuevo usuario -->
-            <a href="{{ route('orders.create') }}" class="float-right"><button type="button" class="btn btn-sm bg-btn-lightgreen text-white float-right"><i class="fas fa-user-plus"></i> @lang('New Order')</button></a>
+            <!-- Botón nuevo pedido -->
+            {{-- <a href="{{ route('orders.create') }}" class="float-right"><button type="button" class="btn btn-sm bg-btn-lightgreen text-white float-right"><i class="fas fa-user-plus"></i> @lang('New Order')</button></a> --}}
 
             <!-- Exportar a PDF -->
-            <a href="{{ route('orders.pdf') }}" class="float-right mr-3"><button type="button" class="btn btn-sm text-danger float-right p-0"><i class="far fa-file-pdf fa-2x"></i></button></a>
+            <a href="{{ route('orders.pdf') }}" class="float-right mr-3"><button type="button" class="btn btn-sm text-danger float-right p-0" data-toggle="tooltip" data-placement="bottom" title="Exportar a PDF"><i class="far fa-file-pdf fa-2x"></i></button></a>
 
             <!-- Exportar a XLS -->
-            <a href="{{ route('orders.xls') }}" class="float-right mr-3"><button type="button" class="btn btn-sm float-right p-0" style="color: #217346"><i class="far fa-file-excel fa-2x"></i></button></a>
+            <a href="{{ route('orders.xls') }}" class="float-right mr-3"><button type="button" class="btn btn-sm float-right p-0" style="color: #217346" data-toggle="tooltip" data-placement="bottom" title="Exportar a Excel"><i class="far fa-file-excel fa-2x"></i></button></a>
         </div>
     </div>
 
@@ -23,33 +23,36 @@
             <table id="infTable" class="display table table-hover table-striped responsive nowrap">
                 <thead>
                     <tr class="bg-btn-lightgreen text-white">
-                        <th>Id</th>
+                        <th class="align-middle py-2 text-center">Id</th>
+                        <th>NIT</th>
                         <th class="align-middle py-2 text-center">Fecha</th>
                         <th class="align-middle py-2 text-center">Fecha pedido</th>
+                        <th class="align-middle py-2 text-right">Total</th>
+                        <th class="align-middle py-2 text-center">Estado</th>
                         <th class="align-middle py-2 text-center">Acciones</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($orders as $order)
+                    
                     <tr class="align-items-center">
-                        <td>{{ $order->identifier }}</td>
-                        <td class="align-middle py-0 display-none">{{ $order->created_at }}</small></span></td>
-                        <td class="d-flex flex-column align-middle py-0 text-center">{{ $order->created_at }} <small class="text-secondary float-none">({{ $order->created_at->diffForHumans() }})</small></span></td>
+                        <td class="align-middle py-2 text-center">{{ $order->id }}</td>
+                        <td class="align-middle py-2">{{ $order->user_id }}</td>
+                        <td class="align-middle py-0 display-none">{{ $order->created_at }}</td>
+                        <td class="d-flex flex-column align-items-center"><span>{{ $order->created_at }}</span><span><small class="text-secondary float-none">({{ $order->created_at->diffForHumans() }})</small></span></td>
+                        <td class="align-middle py-2 text-right">$ {{ number_format($order->total,0,',', '.') }}</td>
+                        <td class="align-middle py-2 text-center">
+                            {{ $order->status }}
+                        </td>
                         <td class="align-middle text-center py-0">
-                            <form action="{{ route('orders.destroy', $order->identifier) }}" method="POST">
+                            <form action="{{ route('orders.destroy', $order->id) }}" method="POST">
                                 @csrf @method('DELETE')
-                                <a type="button" href="{{ route('orders.show', $order->identifier) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnView" id="btnView" value="{{ $order->identifier}}"><i class="far fa-eye"></i></a>
-                                <a type="button" href="{{ route('orders.edit', $order->identifier) }}" class="btn btn-sm btn-blue m-1 text-white" name="btnCheck" id="btnCheck" value="{{ $order->identifier}}"><i class="fas fa-check"></i></a>
-                                <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnBorrar" value="{{ $order->identifier}}"><i class="far fa-trash-alt"></i></button>
+                                <a type="button" href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnView" id="btnView" value="{{ $order->id}}"><i class="far fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver detalle"></i></a>
+                                <a type="button" href="{{ route('orders.edit', $order->id) }}" class="btn btn-sm bg-btn-lightgreen m-1 text-white" name="btnCheck" id="btnCheck" value="{{ $order->id}}" data-toggle="tooltip" data-placement="bottom" title="Entregado"><i class="fas fa-check"></i></a>
+                                <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnBorrar" value="{{ $order->id}}" data-toggle="tooltip" data-placement="bottom" title="Borrar"><i class="far fa-trash-alt"></i></button>
                             </form>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
                     </tr>
                     @empty
                     <p>No hay pedidos para mostrar</p>
@@ -71,12 +74,12 @@
     $(document).ready(function() {
         $('#infTable').DataTable({
             "columnDefs": [{
-                "targets": [1],
+                "targets": [2],
                 "visible": false,
                 "searchable": false
             }, ],
             "order": [
-                [1, "desc"]
+                [1, "asc"]
             ],
             "language": {
                 "emptyTable": "No hay datos disponibles en la tabla.",

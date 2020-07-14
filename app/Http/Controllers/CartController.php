@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\OrderProduct;
+use App\Product;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use App\Product;
 
 
 class CartController extends Controller
@@ -44,7 +46,7 @@ class CartController extends Controller
         return redirect()->route('catalog');
     }
 
-        public function itemEdit(Request $request, $rowId)
+     public function itemEdit(Request $request, $rowId)
     {
         $quantity = $request['quantity'];
         
@@ -64,10 +66,29 @@ class CartController extends Controller
     {
         $nit = $request['nit'];
         
-        Cart::store($nit);
+        // Insert into orders table
+        $order = Order::create([
+            'user_id' => auth()->user() ? auth()->user()->nit : $request->nit,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'date' => now('America/Bogota'),
+            'total' => Cart::total()*1000,
+            ]);
+            
+            // Insert into order_product table
+            foreach (Cart::content() as $item){
+                OrderProduct::create([
+                    'order_id' => $order->id,
+                    'product_id' => $item->id,
+                    'quantity' => $item->qty,
+                    ]);
+                }
         
-        Cart::destroy();
+        Cart::instance($nit)->store($nit);
         
+        Cart::instance('default')->destroy();
+
         return redirect()->route('cart.index')->with('orderSent', 'Su pedido ha sido enviado correctamente');
     }
 

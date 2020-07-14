@@ -29,7 +29,7 @@
                <b>{{$product->common_name}}</b>
             </div>
 
-            <div><img src="/{{ $product->image}}" class="card-img img-responsive rounded-0" /></div>
+            <div><img src="{{ route('home-products.image', $product->image) }}" class="card-img img-responsive rounded-0" /></div>
             <div class="card-body px-2 py-0">
                <p class="mt-0 mb-2 card-subtitle text-center text-danger"><i>{{$product->scientific_name}}</i></p>
                <p class="my-0"><small class="card-text"><b>Vlr. unitario: </b>{{number_format($product->cost,0,',','.')}}</small></p>

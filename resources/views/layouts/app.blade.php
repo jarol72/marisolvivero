@@ -33,7 +33,9 @@
 
       <main class="py-2 container-md content">
          @yield('content')
-         @include('partials._viewCart') 
+         @if(!Route::Is('cart.index'))
+            @include('partials._viewCart')
+         @endif
       </main>
 
       @include('partials.footer')

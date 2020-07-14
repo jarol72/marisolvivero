@@ -10,33 +10,45 @@
       </div>
    </section>
 
-<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 justify-content-between">
-   @forelse($categories as $category)
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 justify-content-center">
+   @foreach($categories as $category)
 
       <div class="col mb-4 card-deck">
          <div class="card border-card">
-            <div class="card-header bg-btn-lightgreen text-white text-center">
-               <b>
-                  <p class="category-title">
-                     <a href="{{route('category_filter', $category->id)}}" class="text-white text-decoration-none text-uppercase">{{$category->category}}</a>
-                  </p>
-               </b>
-            </div>
+            <a href="{{route('category_filter', $category->id)}}" class="text-white text-decoration-none text-uppercase">
+               <div class="card-header bg-btn-lightgreen text-white text-center">
+                  <b>
+                     <p class="category-title">
+                        {{$category->category}}
+                     </p>
+                  </b>
+               </div>
+            </a>
 
             <div class="card-body p-0">
-               <img src='{{asset("siteimg/$category->image")}}' class="card-img rounded-0 w-100 h-100" />
+               <a href="{{route('category_filter', $category->id)}}">
+                  <img src='{{asset("siteimg/$category->image")}}' class="card-img rounded-0 w-100 h-100" />
+               </a>
             </div>
          </div>
       </div>
-
-   @empty
-      <!-- /div>
-         <div class='card'>
-            <div class="card-body">
-               <p>No hay categorías para mostrar</p>
-            </div>
-         </div>
-      </div -->
-   @endforelse
+   
+   @endforeach
 </div>
-   @endsection
+<div>
+   <p class="h2 font-weight-bold text-center mt-3">Productos Destacados</p>
+</div>
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-4 justify-content-center">
+   @foreach($products as $product)
+   <div class="mt-5">
+      @if($product->image)
+         <div class="text-center">
+            <img src="{{ route('home-products.image', $product->image) }}" class="" height="100" alt="">
+         </div>
+      @endif
+      <div class="text-center m-0 p-0"><small>{{ $product->common_name }}</small></div>
+      <div class="text-center m-0 p-0 text-danger"><small>{{ $product->scientific_name }}</small></div>
+   </div>
+   @endforeach
+</div>
+@endsection
