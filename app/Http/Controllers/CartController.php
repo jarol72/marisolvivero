@@ -32,8 +32,7 @@ class CartController extends Controller
     }
 
     public function add(Request $request, int $id) {
-        /* return $request->all(); */
-        
+                
         $id = $request['id'];
         $quantity = $request['quantity'];
         

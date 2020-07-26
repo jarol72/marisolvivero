@@ -6,14 +6,17 @@
 <div class="d-flex justify-content-end">
     <form action="{{ route('orders.destroy', $order->id) }}" method="POST">
         <a type="button" href="{{ route('orders.index') }}" class="btn btn-warning m-1 " name="btnViewAll" id="btnViewAll" value="{{ $order->id }}" ><i class="nav-icon fas fa-cart-arrow-down" data-toggle="tooltip" data-placement="bottom" title="Todos los pedidos"></i></a>
-        <a type="button" href="{{ route('orders.edit', $order->id) }}" class="btn bg-btn-lightgreen m-1 text-white" name="btnCheck" id="btnCheck" value="{{ $order->id}}" data-toggle="tooltip" data-placement="bottom" title="Entregado"><i class="fas fa-check"></i></a>
+        <a type="button" href="{{ route('orders.deliver', $order->id) }}" class="btn bg-btn-lightgreen m-1 text-white" name="btnCheck" id="btnCheck" value="{{ $order->id}}" data-toggle="tooltip" data-placement="bottom" title="Entregado"><i class="fas fa-check"></i></a>
         @csrf @method('DELETE')
         <button type="submit"class="btn btn-danger m-1 text-white" name="btnBorrar" value="{{ $order->id }}" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="far fa-trash-alt"></i></button>
     </form>
   </div>
 
 <div class="card mt-2">
-<div class="card-header h4 bg-darkgreen text-white font-weight-bold">@lang('Order'): {{ $order->user_id }}</div>
+<div class="card-header h4 bg-darkgreen text-white font-weight-bold d-flex justify-content-between">
+    <span class="col col-10 p-0">@lang('Order'): {{ $order->user_id }}</span>
+    <span class="col col-2 p-0 text-right">{{ $order->status }}</span>
+</div>
 
     <div class="card-body">
         <div class="content mt-1">

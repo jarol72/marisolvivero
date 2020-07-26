@@ -67,12 +67,14 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-       $order = Order::findOrFail($order->id);
+       /* dd($order); */
+       
+       /* $order = Order::findOrFail($order->id);
        $order->status = request('status');
 
        $order->save();
 
-       return redirect()->route('orders.index')->with('status', 'El pedido se marcó como entregado.');
+       return redirect()->route('orders.index')->with('status', 'El pedido se marcó como entregado.'); */
     }
 
     /**
@@ -128,7 +130,7 @@ class OrderController extends Controller
 
     public function pdf() 
     {
-        $orders = Order::orderBy('created_at', 'desc')->get(); 
+        $orders = Order::whereStatus('Por entregar')->orderBy('created_at', 'ASC')->get(); 
         /* $orders = DB::table('shoppingcart')
                         ->groupBy('identifier')        
                         ->orderBy('created_at', 'desc')
@@ -141,7 +143,25 @@ class OrderController extends Controller
         return $pdf->stream('listado.pdf');
     }
 
-
+    public function deliver(Request $request, $id)
+    {
+       $order = Order::findOrFail($id);
+       
+       switch($order->status){
+            case 'Por entregar':
+                $order->status = 'Entregado';
+                $message = 'El pedido fue marcado como "Entregado".';
+            break;
+            
+            default:
+                $order->status = 'Por entregar';
+                $message = 'El pedido fue marcado como "Por entregar".';
+       }
+       
+       $order->update();
+       
+       return redirect()->back()->with('status', $message);
+    }
 
     public function search(Request $request)
     {

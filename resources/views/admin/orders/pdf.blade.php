@@ -22,7 +22,7 @@
          <small class="mb-0"><?= date('Y-m-d') ?></small>
       </div>
    </div>
-   
+   Total pedidos por entregar: {{ count($orders) }}
    <main>
       @forelse ($orders as $order)
       <hr style="border-color: black">

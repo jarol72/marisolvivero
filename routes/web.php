@@ -45,6 +45,7 @@ Route::middleware('admin')->prefix('admin')->group(function(){
     Route::get('orders/xls', 'OrderController@xls')->name('orders.xls');
     Route::get('orders/pdf', 'OrderController@pdf')->name('orders.pdf');
     Route::get('orders/create/search', 'OrderController@search')->name('orders.search');
+    Route::get('orders/{id}/deliver', 'OrderController@deliver')->name('orders.deliver');
     /* Route::patch('orders/{rowId}/{order}', 'OrderController@edit')->name('orders.edit'); */
     Route::resource('orders', 'OrderController');
     

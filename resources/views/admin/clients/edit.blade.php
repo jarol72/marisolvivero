@@ -20,7 +20,8 @@
                     @endif
                     <form method="POST" action="{{ route('clients.update', $client->id) }}" class="mb-0">
                         @csrf @method('PATCH')
-                        <input type="hidden" name="id" class="form-control w-100" id="id" value="{{ old('id',$client->id) }}">
+                        <input type="hidden" name="id" class="form-control w-100" id="id" value="{{ $client->id }}">
+                        <input type="hidden" name="role_id" class="form-control w-100" id="role_id" value="3">
                         <div class="form-group">
                             <label for="name">@lang('Name')</label>
                             <input type="text" class="form-control" name="name" aria-describedby="name" value="{{ $client->name }}">
@@ -31,7 +32,7 @@
                         </div>
                         <div>
                             <button type="submit" class="btn bg-btn-lightgreen text-white">@lang('Save Changes')</button>
-                            <button type="button" class="btn btn-danger" onclick="window.history.go(-1); return false;">@lang('Cancel')</button>
+                        <a href="{{ route('clients.index') }}" type="button" class="btn btn-danger text-white" >@lang('Cancel')</a>
                         </div>
                     </form>
                 </div>
