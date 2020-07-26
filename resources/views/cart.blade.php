@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
+<div class="">
+    <div class="row d-flex">
+        <div class="col-md-12">
 
-            <a href="{{ route('catalog') }}" class="btn bg-btn-lightgreen text-white">@lang('Add Products')</a>
+            
             @if(!session()->has('orderSent') && !Cart::content()->count() == 0)
             {{-- <button type="button" class="btn bg-btn-lightgreen text-white float-right " data-toggle="collapse" data-target="#deliveryData">@lang('Send Order')
             </button> --}}
@@ -14,60 +14,14 @@
 
             <!-- Datos de envío -->
             
-            @if(!session()->has('orderSent') && !Cart::content()->count() == 0)
-            <div class=" card mt-2" id="deliveryData">
-                <div class="card-header h4 font-weight-bold">@lang('Send Order')</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('cart.store') }}" id="clientData" class="mb-0">
-                        <p class="text-secondary mx-0">
-                            Por favor escriba los datos de quien realiza el pedido 
-                            
-                            @if(!Auth::user())
-                            o <button type="submit" name="sendOrder" class="btn btn-sm bg-btn-lightgreen text-white">@lang('Start Session')</button>
-                            @endif
-                            </p>
-                            
-                            @csrf
-                            <div class="form-inline">
-                                <div class="form-group col col-6 pl-0">
-                                    <label for="nit" class="col-form-label">@lang('ID')</label>
-                                    <input type="text" name="nit" class="form-control w-100" id="nit" value="{{ Auth::check() ? Auth::User()->nit : old('nit') }}">
-                                    {!! $errors->first('nit', '<small>:message</small>') !!}
-                                </div>
-                                
-                                <div class="form-group col col-6 pr-0">
-                                    <label for="name" class="col-form-label">@lang('Name')</label>
-                                    <input type="text" name="name" class="form-control w-100" id="name" value="{{ Auth::check() ? Auth::User()->name : old('name') }}">
-                                    {!! $errors->first('name', '<small>:message</small>') !!}
-                                </div>
-                            </div>
-                            
-                            <div class="form-inline">
-                                <div class="form-group col col-6 pl-0">
-                                    <label for="email" class="col-form-label">@lang('E-Mail Address')</label>
-                                    <input type="text" name="email" class="form-control w-100" id="email" value="{{ Auth::check() ? Auth::User()->email : old('email') }}">
-                                    {!! $errors->first('email', '<small>:message</small>') !!}
-                                </div>
-                                
-                                <div class="form-group col col-6 pr-0">
-                                    <label for="phone" class="col-form-label">@lang('Phone')</label>
-                                    <input type="text" name="phone" class="form-control w-100" id="phone" value="{{ old('phone') }}">
-                                    {!! $errors->first('phone', '<small>:message</small>') !!}
-                                </div>
-                            </div>
-                            
-                            <div class="d-block align-content-right mt-3">
-                                <button type="submit" name="sendOrder" class="btn bg-btn-lightgreen text-white float-right">@lang('Confirm')</button>
-                            </div>
-                        </form>
-                    </div>
-                </div><!-- Datos de envío -->
-                @endif
+            
                 
+                <div class="card col col-md-8 float-left border-0">
                 <!-- Carro de compras -->
-            <div class="card mt-2">
-                <div class="card-header h4 bg-darkgreen text-white font-weight-bold">@lang('Cart')</div>
+                <div class="card-header h4  font-weight-bold">
+                    <span>@lang('Cart')</span>
+                    <a href="{{ route('catalog') }}" class="btn btn-sm bg-btn-lightgreen text-white ml-auto">@lang('Add Products')</a>
+                </div>
 
                 <div class="card-body">
                     @include('partials._session-orderSent')
@@ -124,6 +78,58 @@
                     @endif
                 </div>
             </div>
+
+            @if(!session()->has('orderSent') && !Cart::content()->count() == 0)
+            <div class=" card col col-md-4 float-right border-0" id="deliveryData">
+                <div class="card-header h4  font-weight-bold">
+                    <span>@lang('Send Order')</span>
+                    <a class="btn btn-sm bg-white text-white display-none">@lang('Send Order')</a>
+                </div>
+
+                <div class="card-body ">
+                    <form method="POST" action="{{ route('cart.store') }}" id="clientData" class="mb-0">
+                        <p class="text-secondary mx-0 mb-1">
+                            Por favor escriba los datos de quien realiza el pedido 
+                            
+                            @if(!Auth::user())
+                            o <button type="submit" name="sendOrder" class="btn btn-sm bg-btn-lightgreen text-white">@lang('Start Session')</button>
+                            @endif
+                            </p>
+                            
+                            @csrf
+                            
+                                <div class="form-group mb-1">
+                                    <label for="nit" class="col-form-label mb-0 pb-0">@lang('ID')</label>
+                                    <input type="text" name="nit" class="form-control-sm w-100" id="nit" value="{{ Auth::check() ? Auth::User()->nit : old('nit') }}">
+                                    {!! $errors->first('nit', '<small>:message</small>') !!}
+                                </div>
+                                
+                                <div class="form-group mb-1">
+                                    <label for="name" class="col-form-label mb-0 pb-0">@lang('Name')</label>
+                                    <input type="text" name="name" class="form-control-sm w-100" id="name" value="{{ Auth::check() ? Auth::User()->name : old('name') }}">
+                                    {!! $errors->first('name', '<small>:message</small>') !!}
+                                </div>
+                            
+                                <div class="form-group mb-1">
+                                    <label for="email" class="col-form-label mb-0 pb-0">@lang('E-Mail Address')</label>
+                                    <input type="text" name="email" class="form-control-sm w-100" id="email" value="{{ Auth::check() ? Auth::User()->email : old('email') }}">
+                                    {!! $errors->first('email', '<small>:message</small>') !!}
+                                </div>
+                                
+                                <div class="form-group mb-1">
+                                    <label for="phone" class="col-form- mb-0 pb-0label">@lang('Phone')</label>
+                                    <input type="text" name="phone" class="form-control-sm w-100" id="phone" value="{{ old('phone') }}">
+                                    {!! $errors->first('phone', '<small>:message</small>') !!}
+                                </div>
+                            
+                            
+                            <div class="d-block align-content-right mt-3">
+                                <button type="submit" name="sendOrder" class="btn bg-btn-lightgreen text-white float-right">@lang('Confirm')</button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- Datos de envío -->
+                @endif
         </div>
     </div>
 </div><!-- Fin carro de compras -->

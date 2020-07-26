@@ -107,7 +107,7 @@ class employeeController extends Controller
  
         User::findOrFail($id)->update($request->all());
 
-        return redirect()->route('clients.edit')->with('status', 'El empleado fue actualizado correctamente.');
+        return redirect()->route('employees.index')->with('status', 'El empleado fue actualizado correctamente.');
         
     }
 

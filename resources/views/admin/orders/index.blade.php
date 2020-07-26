@@ -3,6 +3,7 @@
 @section('content')
 <div class="container col-9">
     <h2 class="text-center text-bold">@lang('Orders')</h2>
+    @include('partials._session-status')
     <div class="d-flex justify-content-end mb-1 ml-0">
         {{-- @include('partials._searchForm') --}}
         <div>
@@ -49,7 +50,9 @@
                             <form action="{{ route('orders.destroy', $order->id) }}" method="POST">
                                 @csrf @method('DELETE')
                                 <a type="button" href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnView" id="btnView" value="{{ $order->id}}"><i class="far fa-eye" data-toggle="tooltip" data-placement="bottom" title="Ver detalle"></i></a>
-                                <a type="button" href="{{ route('orders.edit', $order->id) }}" class="btn btn-sm bg-btn-lightgreen m-1 text-white" name="btnCheck" id="btnCheck" value="{{ $order->id}}" data-toggle="tooltip" data-placement="bottom" title="Entregado"><i class="fas fa-check"></i></a>
+                                
+                                <a type="button" href="{{ route('orders.deliver', $order->id) }}" class="btn btn-sm bg-btn-lightgreen m-1 text-white" name="btnCheck" id="btnCheck" value="{{ $order->id }}" data-toggle="tooltip" data-placement="bottom" title="Entregado"><i class="fas fa-check"></i></a>
+                                
                                 <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnBorrar" value="{{ $order->id}}" data-toggle="tooltip" data-placement="bottom" title="Borrar"><i class="far fa-trash-alt"></i></button>
                             </form>
                         </td>

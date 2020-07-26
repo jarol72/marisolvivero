@@ -13,7 +13,7 @@ class Order extends Model
     
     // Atributos asignables en forma masiva
     protected $fillable = [
-        'user_id', 'date', 'name', 'email', 'phone', 'total'
+        'user_id', 'date', 'name', 'email', 'phone', 'total', 'status'
     ];
 
     // Definir el valor por defecto del campo 'status'

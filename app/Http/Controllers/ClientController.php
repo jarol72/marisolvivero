@@ -107,7 +107,7 @@ class ClientController extends Controller
  
         User::findOrFail($id)->update($request->all());
 
-        return redirect()->route('clients.edit')->with('status', 'El cliente fue actualizado correctamente.');
+        return redirect()->route('clients.index')->with('status', 'El cliente fue actualizado correctamente.');
         
     }
 

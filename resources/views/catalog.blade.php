@@ -3,7 +3,7 @@
 @section('title', 'Catálogo de productos')
 
 @section('content')
-   
+
 <div class="container">
    <!-- BOTONES PARA FILTROS POR CATEGORÍA -->
    <div class="row d-flex mt-2 mb-4 justify-content-center">
@@ -15,14 +15,11 @@
       @endforelse
    </div> <!-- FIN BOTONES PARA FILTROS POR CATEGORÍA -->
 
-
-
-
    @include('partials._session-status')
             
    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-between">
+      
       @forelse($products as $product)
-
       <div class="col mb-4 card-deck col-sm">
          <div class="card border-card">
             <div class='bg-btn-green text-white text-center text-uppercase py-2'>
@@ -35,13 +32,13 @@
                <p class="my-0"><small class="card-text"><b>Vlr. unitario: </b>{{number_format($product->cost,0,',','.')}}</small></p>
             <p class="my-0"><small class="card-text"><b>Disponible: </b>{{$product->stock}}</small></p>
                <p class="my-0"><small class="card-text"><b>Categoría: <a href="{{route('category_filter', $category->id)}}" class="">{{$product->category->category}}</a></b></small></p>
-            <form method="POST" action="{{ route('cart.add', $product->id) }}" class="my-2">
+            <form method="POST" action="{{ route('cart.add', $product->id) }}" class="my-2" id="frmAddItem">
                @csrf @method('PATCH')
                <input type="hidden" name="id" value="{{ $product->id }}">
             <p class="my-0"><small class="card-text"><b>Cantidad a comprar: </b></small></p>
                <div class="form-group align-items-baseline d-flex m-0">
                   <input class="form-control form-control-sm w-50 mr-2" name="quantity" type="number"  max="{{ $product->stock }}" min="0" placeholder="">
-                  <input type="submit" class="btn bg-btn-lightgreen text-white btn-sm my-2" value="Agregar">
+                  <input type="submit" class="btn bg-btn-lightgreen text-white btn-sm my-2 btnAddToCart" value="Agregar">
                </div>
             </form>
                
@@ -60,8 +57,6 @@
    <!-- Enlaces de paginación -->
    <div class="row m-auto justify-content-center">
       {{$products->links()}}
-
+      
    </div>
-
-   
-   @endsection
+@endsection
