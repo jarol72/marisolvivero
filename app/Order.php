@@ -21,17 +21,6 @@ class Order extends Model
         'status' => 'Por entregar',
     ];
 
-    /**
-     * Obtener los productos incluidos en el pedido.
-     */
-   /*  public function products()
-    {
-        return $this->belongsToMany('App\Product')->as('detail')
-                    ->using('App\OrderProduct')
-                    ->withPivot(['quantity', 'created_at', 'updated_at'])
-                    ->withTimeStamps();
-    } */
-
     public function user()
     {
         return $this->belongsTo('App\User');

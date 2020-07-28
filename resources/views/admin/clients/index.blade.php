@@ -46,7 +46,7 @@
                         <a type="button" href="{{ route('clients.show', $client->id) }}" class="btn btn-sm btn-dark m-1 text-white" name="btnEditar" id="btnEditar" value="{{ $client->id}}" data-toggle="tooltip" data-placement="bottom" title="Ver"><i class="far fa-eye"></i></a>
                         <a type="button" href="{{ route('clients.edit', $client->id) }}" class="btn btn-sm btn-blue m-1 text-white" name="btnEditar" id="btnEditar" value="{{ $client->id}}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fas fa-pencil-alt"></i></a>
                         @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnBorrar" value="{{ $client->id}}" data-toggle="tooltip" data-placement="bottom" title="Borrar"><i class="far fa-trash-alt"></i></button>
+                     <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnBorrar" value="{{ $client->id}}" data-toggle="tooltip" data-placement="bottom" title="Borrar" onclick="return confirm('Está seguro de querer eliminar el cliente?')"><i class="far fa-trash-alt"></i></button>
                      </form>
 
                   </td>

@@ -61,7 +61,7 @@
                         <a type="button" href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-blue m-1 text-white" name="btnEdit" id="btnEdit" value="{{ $product->id}}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fas fa-pencil-alt"></i></a>
                         <a type="button" href="{{ route('products.inout', $product->id) }}" class="btn btn-sm btn-warning m-1" name="btnTransaction" id="btnTransaction" value="{{ $product->id}}" data-toggle="tooltip" data-placement="bottom" title="Entrada / Salida"><i class="fas fa-exchange-alt"></i></a>
                         @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnDelete" value="{{ $product->id}}" data-toggle="tooltip" data-placement="bottom" title="Borrar"><i class="far fa-trash-alt"></i></button>
+                        <button type="submit" class="btn btn-sm btn-danger m-1 text-white" name="btnDelete" value="{{ $product->id}}" data-toggle="tooltip" data-placement="bottom" title="Borrar" onclick="return confirm('Está seguro de querer eliminar el producto?')"><i class="far fa-trash-alt"></i></button>
                      </form>
 
                   </td>

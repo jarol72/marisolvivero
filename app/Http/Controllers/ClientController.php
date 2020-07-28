@@ -134,7 +134,7 @@ class ClientController extends Controller
     
     public function pdf() 
     {
-        $clients = User::where('role_id', 2)->orderBy('name')->get(); 
+        $clients = User::where('role_id', 3)->orderBy('name')->get(); 
 
         $pdf = PDF::loadView('admin.clients.pdf', compact('clients'));
         $pdf->setPaper('letter', 'portrait');

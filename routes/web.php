@@ -66,7 +66,7 @@ Route::post('contact', 'MessageController@store')->name('message.store');
 
 // Rutas para vistas simples
 Route::view('who', 'who')->name('who');
-Route::view('help', 'help')->name('help');
+Route::get('help', 'HelpController@getDownload')->name('help');
 
 Auth::routes();
 

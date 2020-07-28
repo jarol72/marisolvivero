@@ -34,7 +34,7 @@
                             @error('password')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </div>
                         <div>
-                            <button type="submit" class="btn bg-btn-lightgreen text-white">@lang('Create User')</button>
+                            <button type="submit" class="btn bg-btn-lightgreen text-white">@lang('Create Employee')</button>
                             <button type="reset" class="btn btn-blue">@lang('Reset Fields')</button>
                             <a href="{{ route('employees.index') }}" class="btn btn-danger">@lang('Cancel')</a>
                         </div>

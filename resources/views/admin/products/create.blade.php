@@ -84,7 +84,7 @@
                         </div>
                                  <div class="form-group col-6 px-0 px-0">
                                     <div class="d-flex flex-column justify-content-around mt-3 w-100">
-                                       <button type="submit" class="btn bg-btn-lightgreen text-white m-2">@lang('Save')</button>
+                                       <button type="submit" class="btn bg-btn-lightgreen text-white m-2">@lang('Create Product')</button>
                                        <a href="{{ route('products.index') }}" class="btn btn-danger m-2">@lang('Cancel')</a>
                                     </div>
                                  </div>
