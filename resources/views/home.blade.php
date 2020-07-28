@@ -9,8 +9,10 @@
          <p class="text-justify mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo enim corrupti laborum aperiam exercitationem cumque earum blanditiis odio inventore dolores, reiciendis, iusto quas alias! Aliquid neque, ratione corrupti qui sequi.</p>
       </div>
    </section>
-
-<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 justify-content-center">
+   <div>
+      <p class="h2 font-weight-bold text-center mt-3">@lang('Our Products')</p>
+   </div>
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 justify-content-center mt-4  ">
    @foreach($categories as $category)
 
       <div class="col mb-4 card-deck">

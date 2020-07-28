@@ -62,7 +62,7 @@ class employeeController extends Controller
  
         $user->create($request->all());
 
-        return redirect()->route('clients.create')->with('status', 'El cliente fue creado correctamente.');
+        return redirect()->route('employees.create')->with('status', 'El empleado fue creado correctamente.');
     }
 
     /**
